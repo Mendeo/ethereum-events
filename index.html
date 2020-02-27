@@ -1,0 +1,48 @@
+﻿<!--   
+	Copyright © 2020 Aleksandr Menyaylo (Александр Меняйло)
+
+    This file is part of "eth-events".
+
+    "eth-events" is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    "eth-events" is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Events from etherium blockchain</title>
+    <script src="web3.min.js" type="text/javascript"></script>
+</head>
+<body>
+	<button id="connectBt">Connect with MetaMask</button>
+	<div>
+		<span id="connectionInfo"></span>
+		<span id="contractAddress_lb"></span>
+		<ol id="events">
+		</ol>
+		<button id="clearEvents" hidden="true">Clear list</button>
+	</div>
+	<div id="inputData" hidden="true">
+		<span>Contract Address:</span>
+		<br/>
+		<input id="contractAddress"></input>
+		<br/>
+		<span>Contract ABI:</span>
+		<br/>
+		<textarea id="contractAbi"></textarea>
+		<br/>
+		<button id="inputBt">Start listening</button>
+	</div>
+	<script src="main.js" type="text/javascript"></script>
+</body>
+</html>
