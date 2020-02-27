@@ -33,7 +33,12 @@ if (typeof window.ethereum !== 'undefined')
 }
 else
 {
-	alert('Cannot find etherium provider!');
+	const msg = 'Cannot find etherium provider!';
+	alert(msg);
+	const msgEl = document.createElement('span');
+	msgEl.innerHTML = msg;
+	document.body.append(msgEl);
+	connectBt.hidden = true;
 }
 
 function onConnect(accounts)
