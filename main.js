@@ -85,7 +85,19 @@ function onContractInput()
 					clearEventsBt.hidden = false;
 					let el = document.createElement('li')
 					eventsList.push(el);
-					let aux = event.event + ':<br/>';
+					let d = new Date();					
+					let dateOptions =
+					{
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric',
+						hour: 'numeric',
+						minute: 'numeric',
+						second: 'numeric'
+					};
+					let locale = navigator.browserLanguage || navigator.language || navigator.userLanguage || 'en-US';
+					let aux = `${event.event} (${d.toLocaleString(locale, dateOptions)}):<br/>`
+
 					for (let param in event.returnValues)
 					{
 						if (isNaN(Number(param)))
@@ -93,7 +105,7 @@ function onContractInput()
 							aux += param + ' = ' + event.returnValues[param] + '<br/>';
 						}
 					}
-					aux = aux.slice(0, aux.length - 5);
+					aux = aux.slice(0, aux.length - 5); //Удаляем последнее <br/>
 					el.innerHTML = aux; 
 					eventsHolder.append(el);
 					clearEventsBt.scrollIntoView(false);
