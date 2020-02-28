@@ -68,30 +68,36 @@ function onContractInput()
 	const eventsList = [];
 	const eventsHolder = document.getElementById('events');
 	const clearEventsBt = document.getElementById('clearEvents');
+	const pauseResumeBt = document.getElementById('pauseResumeBt');
+	pauseResumeBt.hidden = false;
+	let isPaused = false;
 	bcSale.events.allEvents((err, event) =>
 		{
-			if (err)
+			if (!isPaused)
 			{
-				console.log(err);
-			}
-			else
-			{
-				//console.log(event);
-				clearEventsBt.hidden = false;
-				let el = document.createElement('li')
-				eventsList.push(el);
-				let aux = event.event + ':<br/>';
-				for (let param in event.returnValues)
+				if (err)
 				{
-					if (isNaN(Number(param)))
-					{
-						aux += param + ' = ' + event.returnValues[param] + '<br/>';
-					}
+					console.log(err);
 				}
-				aux = aux.slice(0, aux.length - 5);
-				el.innerHTML = aux; 
-				eventsHolder.append(el);
-				clearEventsBt.scrollIntoView(false);
+				else
+				{
+					//console.log(event);
+					clearEventsBt.hidden = false;
+					let el = document.createElement('li')
+					eventsList.push(el);
+					let aux = event.event + ':<br/>';
+					for (let param in event.returnValues)
+					{
+						if (isNaN(Number(param)))
+						{
+							aux += param + ' = ' + event.returnValues[param] + '<br/>';
+						}
+					}
+					aux = aux.slice(0, aux.length - 5);
+					el.innerHTML = aux; 
+					eventsHolder.append(el);
+					clearEventsBt.scrollIntoView(false);
+				}
 			}
 		});
 	clearEventsBt.addEventListener('click', () =>
@@ -99,5 +105,10 @@ function onContractInput()
 			eventsList.forEach(el => el.remove());
 			eventsList.length = 0;
 			clearEventsBt.hidden = true;
+		});
+	pauseResumeBt.addEventListener('click', () =>
+		{
+			isPaused = !isPaused;
+			pauseResumeBt.innerHTML = isPaused ? 'Resume' : 'Pause';
 		});
 }
