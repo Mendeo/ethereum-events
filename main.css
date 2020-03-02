@@ -24,10 +24,15 @@ body > div
 #bgDiv
 {
 	background-color: var(--bg-color2);
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	width: 38.2%; /*В соответствии с margin в body.*/
 	z-index: 1;
+}
+ol > li
+{
+	max-width: 100%;
+	border:1px solid red;
 }
 .header
 {
@@ -36,10 +41,12 @@ body > div
 input, textarea
 {
 	width: 100%;
+	box-sizing: border-box;
 }
 textarea
 {
 	height: 10rem;
+	resize: none;
 }
 .button
 {
@@ -52,6 +59,7 @@ textarea
 	position: sticky;
 	bottom: 0px;
 	padding: 0.3rem;
+	background-color: var(--bg-color2);
 }
 .button button
 {
@@ -125,6 +133,10 @@ button:disabled
 	{
 		margin-left: 0px;
 		margin-right: 0px;
+	}
+	#bgDiv
+	{
+		width: 100%;
 	}
 	input
 	{
