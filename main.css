@@ -4,10 +4,15 @@ body > div
 	border:1px solid red;
 }
 */
+:root
+{
+	--bg-color: white;
+}
 body
 {
 	margin-left: 30.9%;
 	margin-right: 30.9%;
+	background-color: var(--bg-color);
 }
 input, textarea
 {
@@ -24,6 +29,11 @@ textarea
 .controlButtons
 {
 	text-align: center;
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	bottom: 0px;
+	background-color: var(--bg-color);
+	padding: 0.3rem;
 }
 .button button
 {

@@ -61,16 +61,18 @@ function onConnect(accounts)
 			onContractInput();
 		});
 }
+
 function onContractInput()
 {
 	const web3 = new Web3(Web3.givenProvider);
-	const bcSale = new web3.eth.Contract(JSON.parse(_contractAbi), _contractAddress);
-	const eventsList = [];
-	const eventsHolder = document.getElementById('events');
+	const contract = new web3.eth.Contract(JSON.parse(_contractAbi), _contractAddress);
 	const clearEventsBt = document.getElementById('clearEvents');
 	const pauseResumeBt = document.getElementById('pauseResumeBt');
+	const scrollToDiv = document.getElementById('scrollToDiv');
+	const eventsList = [];
+	const eventsHolder = document.getElementById('events');
 	let isPaused = false;
-	bcSale.events.allEvents((err, event) =>
+	contract.events.allEvents((err, event) =>
 		{
 			if (!isPaused)
 			{
@@ -108,7 +110,7 @@ function onContractInput()
 					aux = aux.slice(0, aux.length - 5); //Удаляем последнее <br/>
 					el.innerHTML = aux; 
 					eventsHolder.append(el);
-					clearEventsBt.scrollIntoView(false);
+					scrollToDiv.scrollIntoView(false)
 				}
 			}
 		});
