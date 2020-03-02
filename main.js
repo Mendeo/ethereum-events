@@ -68,9 +68,9 @@ function onContractInput()
 	const contract = new web3.eth.Contract(JSON.parse(_contractAbi), _contractAddress);
 	const clearEventsBt = document.getElementById('clearEvents');
 	const pauseResumeBt = document.getElementById('pauseResumeBt');
-	const scrollToDiv = document.getElementById('scrollToDiv');
 	const eventsList = [];
 	const eventsHolder = document.getElementById('events');
+	const scrollToDiv = document.getElementById('scrollToDiv');
 	let isPaused = false;
 	contract.events.allEvents((err, event) =>
 		{
@@ -128,3 +128,11 @@ function onContractInput()
 			clearEventsBt.disabled = isPaused;
 		});
 }
+
+const _bgDiv = document.getElementById('bgDiv');
+function fillBg()
+{
+	_bgDiv.style.height = document.documentElement.clientHeight + 'px';
+}
+fillBg();
+window.addEventListener('resize', fillBg);

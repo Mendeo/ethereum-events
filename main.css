@@ -6,13 +6,32 @@ body > div
 */
 :root
 {
-	--bg-color: white;
+	--bg-color1: rgb(237, 238, 239);
+	--bg-color2: white;
 }
 body
 {
 	margin-left: 30.9%;
 	margin-right: 30.9%;
-	background-color: var(--bg-color);
+	background-color: var(--bg-color1);
+}
+body > div
+{
+	z-index: 2;
+	position: relative; /*Чтобы поместить над #bgDiv*/
+}
+/*Делаем центр отдельным цветом*/
+#bgDiv
+{
+	background-color: var(--bg-color2);
+	position: absolute;
+	top: 0px;
+	width: 38.2%; /*В соответствии с margin в body.*/
+	z-index: 1;
+}
+.header
+{
+	text-align: center;
 }
 input, textarea
 {
@@ -24,7 +43,7 @@ textarea
 }
 .button
 {
-	text-align: center;
+	text-align: center; /*Выравниваем кнопки по центру*/
 }
 .controlButtons
 {
@@ -32,7 +51,6 @@ textarea
 	position: -webkit-sticky; /* Safari */
 	position: sticky;
 	bottom: 0px;
-	background-color: var(--bg-color);
 	padding: 0.3rem;
 }
 .button button
