@@ -31,7 +31,7 @@ body > div
 }
 ol > li
 {
-	white-space:pre;
+	word-wrap: break-word;
 }
 .header
 {

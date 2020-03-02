@@ -72,6 +72,11 @@ function onContractInput()
 	const eventsHolder = document.getElementById('events');
 	const scrollToDiv = document.getElementById('scrollToDiv');
 	let isPaused = false;
+	//Для тестирования.
+	//let testEl = document.createElement('li');
+	//testEl.innerHTML = 'ggfweiufhweuifhuilwefhuiwehfiuhawefuihwauifhuiwefhuiwehfuiwehfuiawehfuihawefuihweauifhwuiaefhiuawefhuiawhfuiwehfuihwefh';
+	//eventsHolder.append(testEl);
+	//Конец тестирования.
 	contract.events.allEvents((err, event) =>
 		{
 			if (!isPaused)
