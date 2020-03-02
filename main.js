@@ -33,7 +33,7 @@ if (typeof window.ethereum !== 'undefined')
 }
 else
 {
-	const msg = 'Cannot find etherium provider!';
+	const msg = "Can't find etherium provider! You have to install MetaMask first.";
 	alert(msg);
 	const msgEl = document.createElement('span');
 	msgEl.innerHTML = msg;
