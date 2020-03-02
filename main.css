@@ -37,7 +37,7 @@ textarea
 }
 .button button
 {
-	width: 30.9%;
+	width: 45%;
 }
 .controlButtons button
 {
@@ -101,7 +101,7 @@ button:disabled
   border-color: #6c757d;
 }
 /*End bootstrap style*/
-@media screen and (max-width: 768px)
+@media screen and (max-width: 1080px)
 {
 	body
 	{
