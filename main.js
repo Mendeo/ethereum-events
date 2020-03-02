@@ -69,7 +69,6 @@ function onContractInput()
 	const eventsHolder = document.getElementById('events');
 	const clearEventsBt = document.getElementById('clearEvents');
 	const pauseResumeBt = document.getElementById('pauseResumeBt');
-	pauseResumeBt.hidden = false;
 	let isPaused = false;
 	bcSale.events.allEvents((err, event) =>
 		{
@@ -83,6 +82,7 @@ function onContractInput()
 				{
 					//console.log(event);
 					clearEventsBt.hidden = false;
+					pauseResumeBt.hidden = false;
 					let el = document.createElement('li')
 					eventsList.push(el);
 					let d = new Date();					
@@ -117,10 +117,12 @@ function onContractInput()
 			eventsList.forEach(el => el.remove());
 			eventsList.length = 0;
 			clearEventsBt.hidden = true;
+			pauseResumeBt.hidden = true;
 		});
 	pauseResumeBt.addEventListener('click', () =>
 		{
 			isPaused = !isPaused;
 			pauseResumeBt.innerHTML = isPaused ? 'Resume' : 'Pause';
+			clearEventsBt.disabled = isPaused;
 		});
 }
