@@ -17,9 +17,18 @@
     along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
 */
 'use strict';
-const _provider = window['ethereum']; // Ethereum user detected. You can now use the provider.
+const _provider = window['ethereum'];
 let _contractAddress;
 let _contractAbi;
+const _bgDiv = document.getElementById('bgDiv'); //Белый фон в центре.
+
+function fillBg()
+{
+	_bgDiv.style.height = document.documentElement.clientHeight + 'px';
+}
+fillBg();
+window.addEventListener('resize', fillBg);
+
 if (typeof window.ethereum !== 'undefined')
 {
 	const connectBt = document.getElementById('connectBt');
@@ -35,9 +44,10 @@ else
 {
 	const msg = "Can't find etherium provider! You have to install MetaMask first.";
 	alert(msg);
-	const msgEl = document.createElement('span');
+	const msgEl = document.createElement('h4');
+	msgEl.style="margin-top: 50px; color: red";
 	msgEl.innerHTML = msg;
-	document.body.append(msgEl);
+	_bgDiv.append(msgEl);
 	connectBt.hidden = true;
 }
 
@@ -133,11 +143,3 @@ function onContractInput()
 			clearEventsBt.disabled = isPaused;
 		});
 }
-
-const _bgDiv = document.getElementById('bgDiv');
-function fillBg()
-{
-	_bgDiv.style.height = document.documentElement.clientHeight + 'px';
-}
-fillBg();
-window.addEventListener('resize', fillBg);
