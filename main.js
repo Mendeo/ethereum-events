@@ -74,7 +74,7 @@ function onContractInput()
 	let isPaused = false;
 	//Для тестирования.
 	//let testEl = document.createElement('li');
-	//testEl.innerHTML = 'ggfweiufhweuifhuilwefhuiwehfiuhawefuihwauifhuiwefhuiwehfuiwehfuiawehfuihawefuihweauifhwuiaefhiuawefhuiawhfuiwehfuihwefh';
+	//testEl.innerHTML = `${new Date().toString()} тестирование вывода.`;
 	//eventsHolder.append(testEl);
 	//Конец тестирования.
 	contract.events.allEvents((err, event) =>
