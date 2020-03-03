@@ -33,20 +33,21 @@ window.addEventListener('resize', fillBg);
 
 //Отображаем описание
 const _locale = navigator.browserLanguage || navigator.language || navigator.userLanguage || 'en-US';
-console.log(_locale);
-let info;
-if (_locale === 'ru-RU')
-{
-	info = document.getElementById('infoRus');
-}
-else
-{
-	info = document.getElementById('infoEng');
-}
-//Можно продолжать другие переводы.
-//Можно сделать, чтобы они подгружались по запросу.
+const _info = document.getElementById('info');
+_info.hidden = false;
+displayInfo();
 
-info.hidden = false;
+async function displayInfo()
+{
+	let defaultLocale = 'en-US'
+	let info;
+	let res = await fetch(`/lang/${_locale}/info.html`);
+	console.log(_locale);
+	console.log(res);
+	if (!res.ok) res = await fetch(`/lang/${defaultLocale}/info.html`);
+	info = res.ok ? await res.text() : false;
+	if (info) _info.innerHTML = info;
+}
 
 //Проверка на наличе MetaMask
 if (typeof window.ethereum !== 'undefined')
@@ -56,7 +57,7 @@ if (typeof window.ethereum !== 'undefined')
 		{
 			_provider.enable().then(onConnect).catch(console.log);
 			connectBt.hidden = true;
-			info.hidden = true;
+			_info.hidden = true;
 		});
 	_provider.on('chainChanged', () => document.location.reload());
 	_provider.autoRefreshOnNetworkChange = false;
