@@ -32,20 +32,17 @@ window.addEventListener('resize', fillBg);
 /***************************/
 
 //Отображаем описание
-const _locale = navigator.browserLanguage || navigator.language || navigator.userLanguage || 'en-US';
+const DEFAULT_LANG = 'en-US'
+const _lang = navigator.browserLanguage || navigator.language || navigator.userLanguage || DEFAULT_LANG;
 const _info = document.getElementById('info');
 _info.hidden = false;
 displayInfo();
 
 async function displayInfo()
 {
-	let defaultLocale = 'en-US'
-	let info;
-	let res = await fetch(`/lang/${_locale}/info.html`);
-	console.log(_locale);
-	console.log(res);
-	if (!res.ok) res = await fetch(`/lang/${defaultLocale}/info.html`);
-	info = res.ok ? await res.text() : false;
+	let res = await fetch(`/lang/${_lang}/info.html`);
+	if (!res.ok) res = await fetch(`/lang/${DEFAULT_LANG}/info.html`);
+	let info = res.ok ? await res.text() : false;
 	if (info) _info.innerHTML = info;
 }
 
@@ -134,7 +131,7 @@ function onContractInput()
 						minute: 'numeric',
 						second: 'numeric'
 					};
-					let aux = `${event.event} (${d.toLocaleString(_locale, dateOptions)}):<br/>`
+					let aux = `${event.event} (${d.toLocaleString(_lang, dateOptions)}):<br/>`
 
 					for (let param in event.returnValues)
 					{
