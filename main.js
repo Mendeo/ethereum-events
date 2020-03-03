@@ -32,6 +32,7 @@ window.addEventListener('resize', fillBg);
 /***************************/
 
 //Отображаем описание
+const APP_PATH = '/eth-events';
 const DEFAULT_LANG = 'en-US'
 const _lang = navigator.browserLanguage || navigator.language || navigator.userLanguage || DEFAULT_LANG;
 const _info = document.getElementById('info');
@@ -40,8 +41,8 @@ displayInfo();
 
 async function displayInfo()
 {
-	let res = await fetch(`/lang/${_lang}/info.html`);
-	if (!res.ok) res = await fetch(`/lang/${DEFAULT_LANG}/info.html`);
+	let res = await fetch(`${APP_PATH}/lang/${_lang}/info.html`);
+	if (!res.ok) res = await fetch(`${APP_PATH}/lang/${DEFAULT_LANG}/info.html`);
 	let info = res.ok ? await res.text() : false;
 	if (info) _info.innerHTML = info;
 }
