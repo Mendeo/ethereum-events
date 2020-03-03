@@ -51,20 +51,20 @@ button
 }
 button:hover
 {
-  color: #fff;
-  background-color: #5a6268;
-  border-color: #545b62;
+	color: #fff;
+	background-color: #5a6268;
+	border-color: #545b62;
 }
 
 button:focus
 {
-  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+	box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 }
 button:disabled
 {
-  color: #fff;
-  background-color: #6c757d;
-  border-color: #6c757d;
+	color: #fff;
+	background-color: #6c757d;
+	border-color: #6c757d;
 }
 /*End bootstrap style*/
 

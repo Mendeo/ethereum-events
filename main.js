@@ -22,13 +22,33 @@ let _contractAddress;
 let _contractAbi;
 const _bgDiv = document.getElementById('bgDiv'); //Белый фон в центре.
 
+//Зполняем белым фоном центр.
 function fillBg()
 {
 	_bgDiv.style.height = document.documentElement.clientHeight + 'px';
 }
 fillBg();
 window.addEventListener('resize', fillBg);
+/***************************/
 
+//Отображаем описание
+const _locale = navigator.browserLanguage || navigator.language || navigator.userLanguage || 'en-US';
+console.log(_locale);
+let info;
+if (_locale === 'ru-RU')
+{
+	info = document.getElementById('infoRus');
+}
+else
+{
+	info = document.getElementById('infoEng');
+}
+//Можно продолжать другие переводы.
+//Можно сделать, чтобы они подгружались по запросу.
+
+info.hidden = false;
+
+//Проверка на наличе MetaMask
 if (typeof window.ethereum !== 'undefined')
 {
 	const connectBt = document.getElementById('connectBt');
@@ -36,6 +56,7 @@ if (typeof window.ethereum !== 'undefined')
 		{
 			_provider.enable().then(onConnect).catch(console.log);
 			connectBt.hidden = true;
+			info.hidden = true;
 		});
 	_provider.on('chainChanged', () => document.location.reload());
 	_provider.autoRefreshOnNetworkChange = false;
@@ -112,8 +133,7 @@ function onContractInput()
 						minute: 'numeric',
 						second: 'numeric'
 					};
-					let locale = navigator.browserLanguage || navigator.language || navigator.userLanguage || 'en-US';
-					let aux = `${event.event} (${d.toLocaleString(locale, dateOptions)}):<br/>`
+					let aux = `${event.event} (${d.toLocaleString(_locale, dateOptions)}):<br/>`
 
 					for (let param in event.returnValues)
 					{

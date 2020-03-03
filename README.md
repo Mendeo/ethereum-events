@@ -7,7 +7,7 @@ The program can be useful for developers of smart contracts.
 
 * The program is designed as a web page and is available on GitHub Pages: https://mendeo.github.io/eth-events/
 * You can also use your own web server that can send the static files, such as nginx.
-* The Meta Mask extension must be installed in the browser.
+* The MetaMask extension must be installed in the browser.
 * The web page is adapted to work on a smartphone.
 
 After opening the program page in the browser, you will need to click on the "Connect with Meta Mask" button, then the page will request a connection to the blockchain via MetaMask. After a successful connection, you have to enter the smart contract address and ABI. The program will start listening the events of this contract after clicking the "Start listening" button.
