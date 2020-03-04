@@ -13,6 +13,7 @@ After opening the program page in the browser, you will need to click on the "Co
 
 * *The web3.js library is used*.
 * *MetaMask won't work if you just open index.html in a browser without a web server.*
+* *Translation options are located in the "lang" folder.*
 ------
 Назначение программы: отслеживание событий, которые генерирует заданный смарт контракт в сети Ethereum.
 
@@ -26,3 +27,4 @@ After opening the program page in the browser, you will need to click on the "Co
 
 * *Для работы используется библиотека web3.js.*
 * *MetaMask не будет работать, если просто открыть index.html в браузере без веб сервера.*
+* *Варианты перевода на другие языки находятся в папке "lang".*

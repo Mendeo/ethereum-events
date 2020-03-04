@@ -31,7 +31,6 @@ fillBg();
 window.addEventListener('resize', fillBg);
 /***************************/
 
-//Отображаем описание
 const APP_PATH = window.location.pathname;
 const DEFAULT_LANG = 'en-US'
 const _lang = navigator.browserLanguage || navigator.language || navigator.userLanguage || DEFAULT_LANG;
@@ -60,9 +59,15 @@ function onTranslationLoad()
 	//Проверка на наличе MetaMask
 	if (typeof window.ethereum !== 'undefined')
 	{
+		//Заполнение описания
 		const info = document.getElementById('info');
 		info.hidden = false;
 		info.innerHTML = _infoLang;
+		const infoConnectBt = document.getElementById('infoConnectBt');
+		infoConnectBt.innerHTML = _interfaceLang.connectBt;
+		const infoStartListenBt = document.getElementById('infoStartListenBt');
+		infoStartListenBt.innerHTML = _interfaceLang.startListenBt;
+		//*******************
 		const connectBt = document.getElementById('connectBt');
 		connectBt.innerHTML = _interfaceLang.connectBt;
 		connectBt.addEventListener('click', () =>
