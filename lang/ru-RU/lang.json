@@ -1,0 +1,12 @@
+{
+	"connectBt": "Подключиться с MetaMask",
+	"startListenBt": "Начать слушать",
+	"accountLb": "Адрес",
+	"contractAddressLb": "Адрес контракта",
+	"clearListBt": "Очистить список",
+	"pauseBt": "Пауза",
+	"resumeBt": "Продолжить",
+	"contractAddressIn": "Адрес контракта",
+	"contractAbiIn": "ABI контракта",
+	"noProviderError": "Провайдер ethereum не обнаружен. Сначала нужно установить расширение MetaMask!"
+}

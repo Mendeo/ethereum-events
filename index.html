@@ -33,33 +33,33 @@
 <body>
 	<div id="info" hidden="true"></div>
 	<div class="button">
-		<button id="connectBt">Connect with MetaMask</button>
+		<button id="connectBt"></button>
 	</div>
 	<div>
 		<div class="header">
 			<span id="connectionInfo"></span>
-			<span id="contractAddress_lb"></span>
+			<span id="contractAddressLb"></span>
 		</div>
 		<ol id="events">
 		</ol>
 		<div class="controlButtons">
-			<button id="clearEvents" hidden="true">Clear list</button>
-			<button id="pauseResumeBt" hidden="true">Pause</button>
+			<button id="clearEvents" hidden="true"></button>
+			<button id="pauseResumeBt" hidden="true"></button>
 		</div>
 		<div id="scrollToDiv"></div>
 	</div>
 	<div id="inputData" hidden="true">
-		<span>Contract Address:</span>
+		<span id="contractAddressInHeader"></span>
 		<br/>
 		<input id="contractAddress">
 		<br/>
 		<br/>
-		<span>Contract ABI:</span>
+		<span id="contractAbiInHeader"></span>
 		<br/>
 		<textarea id="contractAbi"></textarea>
 		<br/>
 		<div class="button">
-			<button id="inputBt">Start listening</button>
+			<button id="startListenBt"></button>
 		</div>
 	</div>
 	<div id="bgDiv"></div>

@@ -1,0 +1,11 @@
+{
+	"connectBt": "Connect with MetaMask",
+	"startListeningBt": "Start listening",
+	"accountLb": "Account",
+	"contractAddressLb": "Contract address",
+	"clearListBt": "Clear list",
+	"pauseBt": "Pause",
+	"contractAddressIn": "Contract address",
+	"contractAbiIn": "Contract ABI",
+	"noProviderError": "Can't find etherium provider! You have to install MetaMask first."
+}

@@ -32,61 +32,81 @@ window.addEventListener('resize', fillBg);
 /***************************/
 
 //Отображаем описание
-const APP_PATH = '/eth-events';
+const APP_PATH = window.location.pathname;
 const DEFAULT_LANG = 'en-US'
 const _lang = navigator.browserLanguage || navigator.language || navigator.userLanguage || DEFAULT_LANG;
-const _info = document.getElementById('info');
-_info.hidden = false;
-displayInfo();
+let _interfaceLang;
+let _infoLang;
 
-async function displayInfo()
+start();
+
+async function start()
 {
-	let res = await fetch(`${APP_PATH}/lang/${_lang}/info.html`);
-	if (!res.ok) res = await fetch(`${APP_PATH}/lang/${DEFAULT_LANG}/info.html`);
-	let info = res.ok ? await res.text() : false;
-	if (info) _info.innerHTML = info;
+	_interfaceLang = await fetchLang('lang.json', false);
+	_infoLang = await fetchLang('info.html', true);
+	onTranslationLoad();
 }
 
-//Проверка на наличе MetaMask
-if (typeof window.ethereum !== 'undefined')
+async function fetchLang(fileName, isText)
 {
-	const connectBt = document.getElementById('connectBt');
-	connectBt.addEventListener('click', () =>
-		{
-			_provider.enable().then(onConnect).catch(console.log);
-			connectBt.hidden = true;
-			_info.hidden = true;
-		});
-	_provider.on('chainChanged', () => document.location.reload());
-	_provider.autoRefreshOnNetworkChange = false;
+	let res = await fetch(`${APP_PATH}/lang/${_lang}/${fileName}`);
+	if (!res.ok) res = await fetch(`${APP_PATH}/lang/${DEFAULT_LANG}/${fileName}`);
+	let type = isText ? res.text : res.json;
+	return res.ok ? await type.call(res) : false;
 }
-else
+
+function onTranslationLoad()
 {
-	const msg = "Can't find etherium provider! You have to install MetaMask first.";
-	alert(msg);
-	const msgEl = document.createElement('h4');
-	msgEl.style="margin-top: 50px; color: red";
-	msgEl.innerHTML = msg;
-	_bgDiv.append(msgEl);
-	connectBt.hidden = true;
+	//Проверка на наличе MetaMask
+	if (typeof window.ethereum !== 'undefined')
+	{
+		const info = document.getElementById('info');
+		info.hidden = false;
+		info.innerHTML = _infoLang;
+		const connectBt = document.getElementById('connectBt');
+		connectBt.innerHTML = _interfaceLang.connectBt;
+		connectBt.addEventListener('click', () =>
+			{
+				_provider.enable().then(onConnect).catch(console.log);
+				connectBt.hidden = true;
+				info.hidden = true;
+			});
+		_provider.on('chainChanged', () => document.location.reload());
+		_provider.autoRefreshOnNetworkChange = false;
+	}
+	else
+	{
+		const msg = _interfaceLang.noProviderError;
+		alert(msg);
+		const msgEl = document.createElement('h4');
+		msgEl.style="margin-top: 50px; color: red; text-align: center";
+		msgEl.innerHTML = msg;
+		_info.append(msgEl);
+		connectBt.hidden = true;
+	}
 }
 
 function onConnect(accounts)
 {
 	const account = accounts[0];
 	const userState = document.getElementById('connectionInfo');
-	userState.innerHTML = `Account: ${account}<br/>`;
+	userState.innerHTML = `${_interfaceLang.accountLb}: ${account}<br/>`;
 	//Вводим входные данные.
 	const inputDiv = document.getElementById('inputData');
 	inputDiv.hidden = false;
-	const contractAddress = document.getElementById('contractAddress');
-	const contractAbi = document.getElementById('contractAbi');
-	const inputBt = document.getElementById('inputBt');
-	inputBt.addEventListener('click', () =>
+	const contractAddress = document.getElementById('contractAddress'); //Поле ввода адреса
+	const contractAddressInHeader = document.getElementById('contractAddressInHeader'); //Заголовок поля ввода адреса
+	contractAddressInHeader.innerHTML = _interfaceLang.contractAddressIn;
+	const contractAbi = document.getElementById('contractAbi'); //Поле ввода ABI
+	const contractAbiInHeader = document.getElementById('contractAbiInHeader'); //Заголовок поля ввода ABI
+	contractAbiInHeader.innerHTML = _interfaceLang.contractAbiIn;
+	const startListenBt = document.getElementById('startListenBt'); //Кнопка пуск
+	startListenBt.innerHTML = _interfaceLang.startListenBt;
+	startListenBt.addEventListener('click', () =>
 		{
 			_contractAddress = contractAddress.value;
 			_contractAbi = contractAbi.value;
-			document.getElementById('contractAddress_lb').textContent = 'Contract address: ' + _contractAddress;
+			document.getElementById('contractAddressLb').textContent = _interfaceLang.contractAddressLb + ': ' + _contractAddress;
 			inputDiv.hidden = true;
 			onContractInput();
 		});
@@ -97,7 +117,9 @@ function onContractInput()
 	const web3 = new Web3(Web3.givenProvider);
 	const contract = new web3.eth.Contract(JSON.parse(_contractAbi), _contractAddress);
 	const clearEventsBt = document.getElementById('clearEvents');
+	clearEventsBt.innerHTML = _interfaceLang.clearListBt;
 	const pauseResumeBt = document.getElementById('pauseResumeBt');
+	pauseResumeBt.innerHTML = _interfaceLang.pauseBt;
 	const eventsList = [];
 	const eventsHolder = document.getElementById('events');
 	const scrollToDiv = document.getElementById('scrollToDiv');
@@ -158,7 +180,7 @@ function onContractInput()
 	pauseResumeBt.addEventListener('click', () =>
 		{
 			isPaused = !isPaused;
-			pauseResumeBt.innerHTML = isPaused ? 'Resume' : 'Pause';
+			pauseResumeBt.innerHTML = isPaused ? _interfaceLang.resumeBt : _interfaceLang.pauseBt;
 			clearEventsBt.disabled = isPaused;
 		});
 }
