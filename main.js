@@ -31,7 +31,16 @@ fillBg();
 window.addEventListener('resize', fillBg);
 /***************************/
 
-const APP_PATH = window.location.pathname;
+function getAppPath()
+{
+	let path = window.location.pathname;
+	let aux = path.lastIndexOf('index.html');
+	if (aux) return path.slice(0, aux);
+	return path;
+}
+
+const APP_PATH = getAppPath();
+console.log(APP_PATH);
 const DEFAULT_LANG = 'en-US'
 const _lang = navigator.browserLanguage || navigator.language || navigator.userLanguage || DEFAULT_LANG;
 let _interfaceLang;
