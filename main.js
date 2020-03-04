@@ -56,12 +56,12 @@ async function fetchLang(fileName, isText)
 
 function onTranslationLoad()
 {
+	const info = document.getElementById('info');
+	info.hidden = false;
 	//Проверка на наличе MetaMask
 	if (typeof window.ethereum !== 'undefined')
 	{
 		//Заполнение описания
-		const info = document.getElementById('info');
-		info.hidden = false;
 		info.innerHTML = _infoLang;
 		const infoConnectBt = document.getElementById('infoConnectBt');
 		if (infoConnectBt) infoConnectBt.innerHTML = _interfaceLang.connectBt;
@@ -86,7 +86,7 @@ function onTranslationLoad()
 		const msgEl = document.createElement('h4');
 		msgEl.style="margin-top: 50px; color: red; text-align: center";
 		msgEl.innerHTML = msg;
-		_info.append(msgEl);
+		info.append(msgEl);
 		connectBt.hidden = true;
 	}
 }
