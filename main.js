@@ -64,9 +64,9 @@ function onTranslationLoad()
 		info.hidden = false;
 		info.innerHTML = _infoLang;
 		const infoConnectBt = document.getElementById('infoConnectBt');
-		infoConnectBt.innerHTML = _interfaceLang.connectBt;
+		if (infoConnectBt) infoConnectBt.innerHTML = _interfaceLang.connectBt;
 		const infoStartListenBt = document.getElementById('infoStartListenBt');
-		infoStartListenBt.innerHTML = _interfaceLang.startListenBt;
+		if (infoStartListenBt) infoStartListenBt.innerHTML = _interfaceLang.startListenBt;
 		//*******************
 		const connectBt = document.getElementById('connectBt');
 		connectBt.innerHTML = _interfaceLang.connectBt;
