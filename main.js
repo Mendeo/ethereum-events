@@ -40,7 +40,6 @@ function getAppPath()
 }
 
 const APP_PATH = getAppPath();
-console.log(APP_PATH);
 const DEFAULT_LANG = 'en-US'
 const _lang = navigator.browserLanguage || navigator.language || navigator.userLanguage || DEFAULT_LANG;
 let _interfaceLang;
@@ -138,6 +137,9 @@ function onContractInput()
 	const eventsHolder = document.getElementById('events');
 	const scrollToDiv = document.getElementById('scrollToDiv');
 	let isPaused = false;
+	const noEventsMsg = document.getElementById('noEventsMsg');
+	noEventsMsg.innerHTML = _interfaceLang.noEventsMsg;
+	noEventsMsg.hidden = false;
 	//Для тестирования.
 	//let testEl = document.createElement('li');
 	//testEl.innerHTML = `${new Date().toString()} тестирование вывода.`;
@@ -156,6 +158,7 @@ function onContractInput()
 					//console.log(event);
 					clearEventsBt.hidden = false;
 					pauseResumeBt.hidden = false;
+					noEventsMsg.hidden = true;
 					let el = document.createElement('li')
 					eventsList.push(el);
 					let d = new Date();					
@@ -190,6 +193,7 @@ function onContractInput()
 			eventsList.length = 0;
 			clearEventsBt.hidden = true;
 			pauseResumeBt.hidden = true;
+			noEventsMsg.hidden = false;
 		});
 	pauseResumeBt.addEventListener('click', () =>
 		{

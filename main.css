@@ -52,6 +52,10 @@ ol > li
 {
 	word-wrap: break-word;
 }
+.message
+{
+	text-align:center;
+}
 .header
 {
 	text-align: center;

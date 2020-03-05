@@ -8,5 +8,6 @@
 	"resumeBt": "Продолжить",
 	"contractAddressIn": "Адрес контракта",
 	"contractAbiIn": "ABI контракта",
-	"noProviderError": "Провайдер ethereum не обнаружен. Сначала нужно установить расширение MetaMask!"
+	"noProviderError": "Провайдер ethereum не обнаружен. Сначала нужно установить расширение MetaMask!",
+	"noEventsMsg": "Событий пока нет."
 }
