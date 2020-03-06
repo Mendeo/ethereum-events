@@ -38,33 +38,64 @@ button:not(:disabled)
 {
 	cursor: pointer;
 }
-button:not(:disabled):active, 
+button:not(:disabled):active 
 {
 	background-image: none;
 }
 /*.btn-secondary*/
-button
+.btn-secondary
 {	
 	color: #fff;
 	background-color: #6c757d;
 	border-color: #6c757d;
 }
-button:hover
+.btn-secondary:hover
 {
 	color: #fff;
 	background-color: #5a6268;
 	border-color: #545b62;
 }
 
-button:focus
+.btn-secondary:focus
 {
 	box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 }
-button:disabled
+.btn-secondary:disabled
 {
 	color: #fff;
 	background-color: #6c757d;
 	border-color: #6c757d;
 }
-/*End bootstrap style*/
-
+/*.btn-success*/
+.btn-success
+{
+	color: #fff;
+	background-color: #28a745;
+	border-color: #28a745;
+}
+.btn-success:hover
+{
+	color: #fff;
+	background-color: #218838;
+	border-color: #1e7e34;
+}
+.btn-success:focus
+{
+	box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}
+.btn-success:disabled
+{
+	color: #fff;
+	background-color: #28a745;
+	border-color: #28a745;
+}
+.btn-success:not(:disabled):active
+{
+	color: #fff;
+	background-color: #1e7e34;
+	border-color: #1c7430;
+}
+.btn-success:not(:disabled):active:focus
+{
+	box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}

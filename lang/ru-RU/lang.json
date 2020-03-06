@@ -9,5 +9,8 @@
 	"contractAddressIn": "Адрес контракта",
 	"contractAbiIn": "ABI контракта",
 	"noProviderError": "Провайдер ethereum не обнаружен. Сначала нужно установить расширение MetaMask!",
-	"noEventsMsg": "Событий пока нет."
+	"noEventsMsg": "Событий пока нет.",
+	"donateHeader": "Пожертвовать эфир!",
+	"donateBt": "Отправить ETH",
+	"donateThankYou": "Спасибо!"
 }

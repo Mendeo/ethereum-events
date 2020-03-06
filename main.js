@@ -17,6 +17,11 @@
     along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
 */
 'use strict';
+const DONATION_ADDRESS = '0x3eCDDfe6c1a705829A2e71c38be40cEB950db865';
+const DONATION_COOKIE_NAME = 'donateDone';
+const DONATION_COOKIE_EXPIRES_MONTH = 3;
+const DONATION_DEFAULT_VALUE = 0.01;
+const DEFAULT_LANG = 'en-US'
 const _provider = window['ethereum'];
 let _contractAddress;
 let _contractAbi;
@@ -40,7 +45,6 @@ function getAppPath()
 }
 
 const APP_PATH = getAppPath();
-const DEFAULT_LANG = 'en-US'
 const _lang = navigator.browserLanguage || navigator.language || navigator.userLanguage || DEFAULT_LANG;
 let _interfaceLang;
 let _infoLang;
@@ -66,10 +70,10 @@ function onTranslationLoad()
 {
 	const info = document.getElementById('info');
 	info.hidden = false;
-	//Проверка на наличе MetaMask
+	//Checking MetaMask
 	if (typeof window.ethereum !== 'undefined')
 	{
-		//Заполнение описания
+		//Description
 		info.innerHTML = _infoLang;
 		const infoConnectBt = document.getElementById('infoConnectBt');
 		if (infoConnectBt) infoConnectBt.innerHTML = _interfaceLang.connectBt;
@@ -82,8 +86,55 @@ function onTranslationLoad()
 			{
 				_provider.enable().then(onConnect).catch(console.log);
 				connectBt.hidden = true;
+				donationBlock.hidden = true;
 				info.hidden = true;
 			});
+		//*******Donation block*******
+		const donationBlock = document.getElementById('donationBlock');
+		let donationCookie = document.cookie.split(';').find(item => item.split('=')[0] === DONATION_COOKIE_NAME);
+		const donateValue = document.getElementById('donateValue');
+		if(!donationCookie)
+		{
+			donationBlock.hidden = false;
+			donateValue.value = DONATION_DEFAULT_VALUE;
+			const donateBt = document.getElementById('donateBt');
+			donateBt.innerHTML = _interfaceLang.donateBt;
+			const donateHeader = document.getElementById('donateHeader');
+			donateHeader.innerHTML = _interfaceLang.donateHeader;
+		}
+		donateBt.addEventListener('click', () =>
+			{
+				_provider.enable().then(accounts =>
+					{
+						const web3 = new Web3(Web3.givenProvider);
+						let value = donateValue.value;
+						if(!isNaN(Number(value)))
+						{
+							web3.eth.sendTransaction(
+							{
+								from: accounts[0],
+								to: DONATION_ADDRESS,
+								value: web3.utils.toWei(value)
+							}, (err, res) =>
+							{
+								if (res)
+								{
+									//Транзакция прошла успешно.
+									donateBt.hidden = true;
+									donateHeader.hidden = true;
+									donateValue.hidden = true;
+									const thankYou = document.getElementById('thankYou');
+									thankYou.hidden = false;
+									thankYou.innerHTML = _interfaceLang.donateThankYou;
+									let expiresDate = new Date();
+									expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
+									document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}; samesite=strict`;
+								}
+							});
+						}
+					}).catch(console.log);
+			});
+		//*******End donation block*******
 		_provider.on('chainChanged', () => document.location.reload());
 		_provider.autoRefreshOnNetworkChange = false;
 	}

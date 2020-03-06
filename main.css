@@ -54,47 +54,64 @@ ol > li
 }
 .message
 {
-	text-align:center;
+	text-align: center;
 }
-.header
+.header /*На случай, если захочется декорировать заголовки*/
 {
 	text-align: center;
+	font-weight: bold;
 }
 .content
 {
 	padding-left: 0.5rem;
 	padding-right: 0.5rem;
 }
-input, textarea
+#inputData input, textarea
 {
 	width: 100%;
 	box-sizing: border-box;
 }
-textarea
+#inputData textarea
 {
 	height: 10rem;
 	resize: none;
 }
-.button
+.buttonsContainer
 {
 	text-align: center; /*Выравниваем кнопки по центру*/
 }
 .controlButtons
 {
-	text-align: center;
 	position: -webkit-sticky; /* Safari */
 	position: sticky;
 	bottom: 0px;
 	padding: 0.3rem;
 	background-color: var(--bg-color2);
 }
-.button button
+button
 {
-	width: 45%;
+	margin: 0.1rem;
 }
 .controlButtons button
 {
 	width: 22.5%
+}
+.buttonsContainer button
+{
+	width: 45%;
+}
+#donationBlock input
+{
+	width: 3rem;
+}
+#donationBlock button
+{
+	width: auto;
+}
+#donationBlock span
+{
+	font-weight: bold;
+	color: green;
 }
 @media screen and (max-width: 1080px)
 {
@@ -123,5 +140,9 @@ textarea
 	.controlButtons button
 	{
 		width: 49%;
+	}
+	.header
+	{
+		font-size: 1.5rem;
 	}
 }

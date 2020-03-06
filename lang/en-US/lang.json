@@ -9,5 +9,8 @@
 	"contractAddressIn": "Contract address",
 	"contractAbiIn": "Contract ABI",
 	"noProviderError": "Can't find etherium provider! You have to install MetaMask first.",
-	"noEventsMsg": "There is no events yet."
+	"noEventsMsg": "There is no events yet.",
+	"donateHeader": "Donate ether!",
+	"donateBt": "Send ETH",
+	"donateThankYou": "Thank you!"
 }

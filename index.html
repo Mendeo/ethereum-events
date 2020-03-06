@@ -32,8 +32,16 @@
 </head>
 <body>
 	<div id="info" hidden="true"></div>
-	<div class="button">
-		<button id="connectBt"></button>
+	<div class="buttonsContainer">
+		<button id="connectBt" class="btn-secondary"></button>
+		</br></br>
+		<p class="content" id="donationBlock" hidden="true">
+			<span id="donateHeader" class="header"></span>
+			</br>
+			<input id="donateValue" />
+			<button id="donateBt" class="btn-success" ></button>
+			<span id="thankYou" hidden="true"></span>
+		</p>
 	</div>
 	<div>
 		<div class="header">
@@ -43,24 +51,24 @@
 		<p id="noEventsMsg" hidden="true" class="message"</p>
 		<ol id="events">
 		</ol>
-		<div class="controlButtons">
-			<button id="clearEvents" hidden="true"></button>
-			<button id="pauseResumeBt" hidden="true"></button>
+		<div class="buttonsContainer controlButtons">
+			<button id="clearEvents" class="btn-secondary" hidden="true"></button>
+			<button id="pauseResumeBt" class="btn-secondary" hidden="true"></button>
 		</div>
 		<div id="scrollToDiv"></div>
 	</div>
-	<div id="inputData" hidden="true">
+	<div id="inputData" class ="content" hidden="true">
 		<span id="contractAddressInHeader"></span>
 		<br/>
-		<input id="contractAddress">
+		<input id="contractAddress"/>
 		<br/>
 		<br/>
 		<span id="contractAbiInHeader"></span>
 		<br/>
 		<textarea id="contractAbi"></textarea>
 		<br/>
-		<div class="button">
-			<button id="startListenBt"></button>
+		<div class="buttonsContainer">
+			<button id="startListenBt" class="btn-secondary"></button>
 		</div>
 	</div>
 	<div id="bgDiv"></div>
