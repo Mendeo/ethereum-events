@@ -166,7 +166,8 @@ button
 	}
 	.header
 	{
-		font-size: 150%;
+		font-size: 130%;
+		word-wrap: break-word;
 	}
 	#inputData span
 	{
