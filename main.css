@@ -100,11 +100,23 @@ button
 {
 	width: 45%;
 }
+/*Donation block*/
+#donationBlock
+{
+	margin-top: 1rem;
+}
+#donationBlock div
+{
+	display: flex;
+	align-items: stretch;
+	justify-content:center;
+	margin-top:0.2rem;
+}
 #donationBlock input
 {
 	width: 3rem;
 }
-#donationBlock button
+#donataionBlock button
 {
 	width: auto;
 }
@@ -113,6 +125,7 @@ button
 	font-weight: bold;
 	color: green;
 }
+/*End donation block*/
 @media screen and (max-width: 1080px)
 {
 	body
