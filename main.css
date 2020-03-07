@@ -17,12 +17,11 @@
     along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
 */
 
-/*
-body > div
+.thankYou
 {
 	border:1px solid red;
 }
-*/
+
 :root
 {
 	--bg-color1: rgb(237, 238, 239);
@@ -55,17 +54,18 @@ ol > li
 .message
 {
 	text-align: center;
+	word-wrap: break-word;	
 }
 .header /*На случай, если захочется декорировать заголовки*/
 {
 	text-align: center;
 	font-weight: bold;
+	margin-bottom: 0.3rem;
 }
 .content
 {
 	padding-left: 0.5rem;
 	padding-right: 0.5rem;
-	text-align: center;
 }
 #inputData input, textarea
 {
@@ -89,6 +89,10 @@ ol > li
 	padding: 0.3rem;
 	background-color: var(--bg-color2);
 }
+#connectBt
+{
+	margin-top: 1.5rem;
+}
 button
 {
 	margin: 0.1rem;
@@ -104,14 +108,13 @@ button
 /*Donation block*/
 #donationBlock
 {
-	margin-top: 1rem;
+	margin-top: 3rem;
 }
 #donationBlock div
 {
 	display: flex;
 	align-items: stretch;
 	justify-content:center;
-	margin-top:0.2rem;
 }
 #donationBlock input
 {
@@ -123,7 +126,6 @@ button
 }
 #donationBlock span
 {
-	font-weight: bold;
 	color: green;
 }
 /*End donation block*/
@@ -166,8 +168,7 @@ button
 	}
 	.header
 	{
-		font-size: 130%;
-		word-wrap: break-word;
+		font-size: 150%;
 	}
 	#inputData span
 	{
