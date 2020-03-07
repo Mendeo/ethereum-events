@@ -93,7 +93,6 @@ function onTranslationLoad()
 		const donationBlock = document.getElementById('donationBlock');
 		let donationCookie = document.cookie.split(';').find(item => item.split('=')[0] === DONATION_COOKIE_NAME);
 		const donateValue = document.getElementById('donateValue');
-		console.log(document.cookie);
 		if(!donationCookie)
 		{
 			donationBlock.hidden = false;
