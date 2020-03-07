@@ -143,11 +143,11 @@ button
 	input
 	{
 		height: 2rem;
-		font-size: 150%;
+		font-size: 130%;
 	}
 	textarea
 	{
-		font-size: 150%;
+		font-size: 130%;
 	}
 	button
 	{
@@ -170,8 +170,12 @@ button
 	{
 		font-size: 150%;
 	}
+	.message
+	{
+		font-size: 130%;
+	}
 	#inputData span
 	{
-		font-size: 150%;
+		font-size: 130%;
 	}
 }
