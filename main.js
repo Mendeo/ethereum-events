@@ -129,7 +129,7 @@ function onTranslationLoad()
 									thankYou.innerHTML = _interfaceLang.donateThankYou;
 									let expiresDate = new Date();
 									expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
-									document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}; samesite=strict`;
+									document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
 								}
 							});
 						}
