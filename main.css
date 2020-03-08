@@ -17,7 +17,7 @@
     along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
 */
 
-.thankYou
+#eventsFilter:first-child
 {
 	border:1px solid red;
 }

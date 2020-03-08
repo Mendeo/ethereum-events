@@ -12,5 +12,7 @@
 	"noEventsMsg": "There is no events yet.",
 	"donateHeader": "Donate ether!",
 	"donateBt": "Send ETH",
-	"donateThankYou": "Thank you!"
+	"donateThankYou": "Thank you!",
+	"selectAllBt": "Select all",
+	"unselectAllBt": "Unselect all"
 }

@@ -25,6 +25,7 @@ const DEFAULT_LANG = 'en-US'
 const _provider = window['ethereum'];
 let _contractAddress;
 let _contractAbi;
+let _eventsNames = [];
 const _bgDiv = document.getElementById('bgDiv'); //Белый фон в центре.
 
 //Зполняем белым фоном центр.
@@ -169,18 +170,29 @@ function onConnect(accounts)
 	startListenBt.addEventListener('click', () =>
 		{
 			_contractAddress = contractAddress.value;
-			_contractAbi = contractAbi.value;
+			_contractAbi = JSON.parse(contractAbi.value);
 			document.getElementById('contractAddressLb').textContent = _interfaceLang.contractAddressLb + ': ' + _contractAddress;
 			inputDiv.hidden = true;
 			onContractInput();
 		});
 }
 
+function getEventsList(abi)
+{
+	let out = [];
+	abi.forEach(el => 
+		{
+			if (el.type === 'event') out.push(el.name);
+		});
+	return out;
+}
+
 function onContractInput()
 {
 	const web3 = new Web3(Web3.givenProvider);
-	const contract = new web3.eth.Contract(JSON.parse(_contractAbi), _contractAddress);
-	const clearEventsBt = document.getElementById('clearEvents');
+	const contract = new web3.eth.Contract(_contractAbi, _contractAddress);
+	_eventsNames = getEventsList(_contractAbi); //Получаем список имён событий
+	const clearEventsBt = document.getElementById('clearEventsBt');
 	clearEventsBt.innerHTML = _interfaceLang.clearListBt;
 	const pauseResumeBt = document.getElementById('pauseResumeBt');
 	pauseResumeBt.innerHTML = _interfaceLang.pauseBt;
@@ -206,41 +218,85 @@ function onContractInput()
 				}
 				else
 				{
-					//console.log(event);
-					clearEventsBt.hidden = false;
-					pauseResumeBt.hidden = false;
-					noEventsMsg.hidden = true;
-					let el = document.createElement('li')
-					eventsList.push(el);
 					let d = new Date();					
+					let el = document.createElement('li')
+					eventsList.push({eventName: event.event, eventListElement: el});
 					let dateOptions =
-					{
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
-						hour: 'numeric',
-						minute: 'numeric',
-						second: 'numeric'
-					};
-					let aux = `${event.event} (${d.toLocaleString(_lang, dateOptions)}):<br/>`
-
+						{
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric',
+							hour: 'numeric',
+							minute: 'numeric',
+							second: 'numeric'
+						};
+					let auxHtml = `${event.event} (${d.toLocaleString(_lang, dateOptions)}):<br/>`
 					for (let param in event.returnValues)
 					{
 						if (isNaN(Number(param)))
 						{
-							aux += param + ' = ' + event.returnValues[param] + '<br/>';
+							auxHtml += param + ' = ' + event.returnValues[param] + '<br/>';
 						}
 					}
-					aux = aux.slice(0, aux.length - 5); //Удаляем последнее <br/>
-					el.innerHTML = aux; 
-					eventsHolder.append(el);
-					scrollToDiv.scrollIntoView(false)
+					auxHtml = auxHtml.slice(0, auxHtml.length - 5); //Удаляем последнее <br/>
+					el.innerHTML = auxHtml; 
+					if (isEventSelected(event.event))
+					{
+						clearEventsBt.hidden = false;
+						pauseResumeBt.hidden = false;
+						noEventsMsg.hidden = true;
+					
+						eventsHolder.append(el);
+						scrollToDiv.scrollIntoView(false);
+					}
 				}
 			}
 		});
-	clearEventsBt.addEventListener('click', () =>
+	//Поле список событий
+	document.getElementById('eventsFilter').hidden = false;
+	const eventsSelector = document.querySelector('#eventsFilter > div:first-child');
+	eventsSelector.style = 'border: 1px solid red';
+	let eventsNamesCb = [];
+	_eventsNames.forEach(name =>
 		{
-			eventsList.forEach(el => el.remove());
+			let auxElement = document.createElement('span');
+			auxElement.innerHTML = name;
+			eventsSelector.append(auxElement);
+			auxElement = document.createElement('input');
+			auxElement.type = 'checkbox';
+			auxElement.checked = true;
+			auxElement.value = name;
+			eventsSelector.append(auxElement);
+			eventsNamesCb.push(auxElement);
+			auxElement.addEventListener('change', () =>
+				{
+					eventsList.forEach(event =>
+						{
+							if (event.eventName === name) 
+							{
+								event.eventListElement.style = (auxElement.checked) ? 'visibility: visible' : 'visibility: collapse';
+							}
+						});
+				});
+		});
+	selectAllBt = document.getElementById('selectAllBt');
+	selectAllBt.hidden = false;
+	selectAllBt.innerHTML = _interfaceLang.selectAllBt;
+	selectAllBt.addEventListener('click', () =>
+		{
+			eventsNamesCb.forEach(el => el.checked = true);
+		});
+	unselectAllBt = document.getElementById('unselectAllBt');
+	unselectAllBt.hidden = false;
+	unselectAllBt.innerHTML = _interfaceLang.unselectAllBt;
+	unselectAllBt.addEventListener('click', () =>
+		{
+			eventsNamesCb.forEach(el => el.checked = false);
+		});
+	//*******************
+		clearEventsBt.addEventListener('click', () =>
+		{
+			eventsList.forEach(event => event.eventName.remove());
 			eventsList.length = 0;
 			clearEventsBt.hidden = true;
 			pauseResumeBt.hidden = true;
@@ -252,4 +308,12 @@ function onContractInput()
 			pauseResumeBt.innerHTML = isPaused ? _interfaceLang.resumeBt : _interfaceLang.pauseBt;
 			clearEventsBt.disabled = isPaused;
 		});
+	function isEventSelected(eventName)
+	{
+		for (let el of eventsNamesCb)
+		{
+			if (el.value === eventName) return true;
+		}
+		return false;
+	}
 }

@@ -12,5 +12,7 @@
 	"noEventsMsg": "Событий пока нет.",
 	"donateHeader": "Пожертвовать эфир!",
 	"donateBt": "Отправить ETH",
-	"donateThankYou": "Спасибо!"
+	"donateThankYou": "Спасибо!",
+	"selectAllBt": "Выбрать всё",
+	"unselectAllBt": "Убрать всё"
 }

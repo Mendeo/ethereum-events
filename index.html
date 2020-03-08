@@ -40,7 +40,7 @@
 			<span id="donateHeader"></span>
 		</div>
 		<div>
-			<input id="donateValue" />
+			<input id="donateValue">
 			<button id="donateBt" class="btn-success" ></button>
 		</div>
 		<div class="header"
@@ -52,11 +52,20 @@
 			<span id="connectionInfo"></span>
 			<span id="contractAddressLb"></span>
 		</div>
+		<div id="eventsFilter" hidden=true>
+			<div>
+				<!--Список имён событий-->
+			</div>
+			<div class="buttonsContainer controlButtons">
+				<button id="selectAllBt" class="btn-secondary" hidden="true"></button>
+				<button id="unselectAllBt" class="btn-secondary" hidden="true"></button>
+			</div>
+		</div>
 		<p id="noEventsMsg" hidden="true" class="message"</p>
 		<ol id="events">
 		</ol>
 		<div class="buttonsContainer controlButtons">
-			<button id="clearEvents" class="btn-secondary" hidden="true"></button>
+			<button id="clearEventsBt" class="btn-secondary" hidden="true"></button>
 			<button id="pauseResumeBt" class="btn-secondary" hidden="true"></button>
 		</div>
 		<div id="scrollToDiv"></div>
@@ -64,7 +73,7 @@
 	<div id="inputData" class ="content" hidden="true">
 		<span id="contractAddressInHeader"></span>
 		<br/>
-		<input id="contractAddress"/>
+		<input id="contractAddress">
 		<br/>
 		<br/>
 		<span id="contractAbiInHeader"></span>
