@@ -208,6 +208,47 @@ function onContractInput()
 	//testEl.innerHTML = `${new Date().toString()} тестирование вывода.`;
 	//eventsHolder.append(testEl);
 	//Конец тестирования.
+	
+	//Фильтр событий
+	document.getElementById('eventsFilter').hidden = false;
+	const eventsSelector = document.querySelector('#eventsFilter > div:first-child');
+	let eventsNamesCb = [];
+	_eventsNames.forEach(name =>
+		{
+			let auxElement = document.createElement('span');
+			auxElement.innerHTML = name;
+			eventsSelector.append(auxElement);
+			auxElement = document.createElement('input');
+			auxElement.type = 'checkbox';
+			auxElement.checked = true;
+			auxElement.value = name;
+			eventsSelector.append(auxElement);
+			eventsNamesCb.push(auxElement);
+			auxElement.addEventListener('change', () =>
+				{
+					eventsList.forEach(event =>
+						{
+							if (event.eventName === name) togleListItem(auxElement.checked, event.eventListElement);
+						});
+				});
+		});
+	selectAllBt = document.getElementById('selectAllBt');
+	selectAllBt.hidden = false;
+	selectAllBt.innerHTML = _interfaceLang.selectAllBt;
+	selectAllBt.addEventListener('click', () =>
+		{
+			eventsNamesCb.forEach(el => el.checked = true);
+			eventsList.forEach(event => togleListItem(true, event.eventListElement));
+		});
+	unselectAllBt = document.getElementById('unselectAllBt');
+	unselectAllBt.hidden = false;
+	unselectAllBt.innerHTML = _interfaceLang.unselectAllBt;
+	unselectAllBt.addEventListener('click', () =>
+		{
+			eventsNamesCb.forEach(el => el.checked = false);
+			eventsList.forEach(event => togleListItem(false, event.eventListElement));
+		});
+	//*******************
 	contract.events.allEvents((err, event) =>
 		{
 			if (!isPaused)
@@ -251,47 +292,6 @@ function onContractInput()
 				}
 			}
 		});
-	//Поле список событий
-	document.getElementById('eventsFilter').hidden = false;
-	const eventsSelector = document.querySelector('#eventsFilter > div:first-child');
-	eventsSelector.style = 'border: 1px solid red';
-	let eventsNamesCb = [];
-	_eventsNames.forEach(name =>
-		{
-			let auxElement = document.createElement('span');
-			auxElement.innerHTML = name;
-			eventsSelector.append(auxElement);
-			auxElement = document.createElement('input');
-			auxElement.type = 'checkbox';
-			auxElement.checked = true;
-			auxElement.value = name;
-			eventsSelector.append(auxElement);
-			eventsNamesCb.push(auxElement);
-			auxElement.addEventListener('change', () =>
-				{
-					eventsList.forEach(event =>
-						{
-							if (event.eventName === name) togleListItem(auxElement.checked, event.eventListElement);
-						});
-				});
-		});
-	selectAllBt = document.getElementById('selectAllBt');
-	selectAllBt.hidden = false;
-	selectAllBt.innerHTML = _interfaceLang.selectAllBt;
-	selectAllBt.addEventListener('click', () =>
-		{
-			eventsNamesCb.forEach(el => el.checked = true);
-			eventsList.forEach(event => togleListItem(true, event.eventListElement));
-		});
-	unselectAllBt = document.getElementById('unselectAllBt');
-	unselectAllBt.hidden = false;
-	unselectAllBt.innerHTML = _interfaceLang.unselectAllBt;
-	unselectAllBt.addEventListener('click', () =>
-		{
-			eventsNamesCb.forEach(el => el.checked = false);
-			eventsList.forEach(event => togleListItem(false, event.eventListElement));
-		});
-	//*******************
 		clearEventsBt.addEventListener('click', () =>
 		{
 			eventsList.forEach(event => event.eventName.remove());
@@ -310,7 +310,7 @@ function onContractInput()
 	{
 		for (let el of eventsNamesCb)
 		{
-			if (el.value === eventName) return true;
+			if (el.value === eventName) return el.checked;
 		}
 		return false;
 	}
