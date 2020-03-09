@@ -17,10 +17,11 @@
     along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
 */
 
-#eventsFilter:first-child
+/*#eventsFilter > div:first-child
 {
 	border:1px solid red;
 }
+*/
 
 :root
 {
@@ -47,9 +48,25 @@ body > div
 	width: 38.2%; /*В соответствии с margin в body.*/
 	z-index: 1;
 }
-ol > li
+#events ol
+{
+	list-style-type: none;
+	counter-reset: events-counter;
+}
+#events li
 {
 	word-wrap: break-word;
+	display: block;
+	counter-increment: events-counter;
+	margin-right: 2rem;
+}
+#events li:before
+{
+	content: counter(events-counter) ".";
+	display: inline-block;
+	color: red;
+	border: 1px red solid;
+	margin-left: -2rem;
 }
 .message
 {

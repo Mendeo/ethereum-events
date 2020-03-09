@@ -240,15 +240,14 @@ function onContractInput()
 					}
 					auxHtml = auxHtml.slice(0, auxHtml.length - 5); //Удаляем последнее <br/>
 					el.innerHTML = auxHtml; 
-					if (isEventSelected(event.event))
-					{
-						clearEventsBt.hidden = false;
-						pauseResumeBt.hidden = false;
-						noEventsMsg.hidden = true;
-					
-						eventsHolder.append(el);
-						scrollToDiv.scrollIntoView(false);
-					}
+
+					clearEventsBt.hidden = false;
+					pauseResumeBt.hidden = false;
+					noEventsMsg.hidden = true;
+					eventsHolder.append(el);
+					let visibility = isEventSelected(event.event);
+					togleElement(visibility, el);
+					if (visibility)	scrollToDiv.scrollIntoView(false);
 				}
 			}
 		});
@@ -272,10 +271,7 @@ function onContractInput()
 				{
 					eventsList.forEach(event =>
 						{
-							if (event.eventName === name) 
-							{
-								event.eventListElement.style = (auxElement.checked) ? 'visibility: visible' : 'visibility: collapse';
-							}
+							if (event.eventName === name) togleElement(auxElement.checked, event.eventListElement);
 						});
 				});
 		});
@@ -285,6 +281,7 @@ function onContractInput()
 	selectAllBt.addEventListener('click', () =>
 		{
 			eventsNamesCb.forEach(el => el.checked = true);
+			eventsList.forEach(event => togleElement(true, event.eventListElement));
 		});
 	unselectAllBt = document.getElementById('unselectAllBt');
 	unselectAllBt.hidden = false;
@@ -292,6 +289,7 @@ function onContractInput()
 	unselectAllBt.addEventListener('click', () =>
 		{
 			eventsNamesCb.forEach(el => el.checked = false);
+			eventsList.forEach(event => togleElement(false, event.eventListElement));
 		});
 	//*******************
 		clearEventsBt.addEventListener('click', () =>
@@ -316,4 +314,8 @@ function onContractInput()
 		}
 		return false;
 	}
+}
+function togleElement(visibility, element)
+{
+	element.style = visibility ? 'display: block' : 'display: none';
 }
