@@ -179,10 +179,10 @@ function onConnect(accounts)
 
 function getEventsList(abi)
 {
-	let out = [];
+	let out = {};
 	abi.forEach(el => 
 		{
-			if (el.type === 'event') out.push(el.name);
+			if (el.type === 'event') out[el.name] = 0;
 		});
 	return out;
 }
@@ -191,7 +191,7 @@ function onContractInput()
 {
 	const web3 = new Web3(Web3.givenProvider);
 	const contract = new web3.eth.Contract(_contractAbi, _contractAddress);
-	_eventsNames = getEventsList(_contractAbi); //Получаем список имён событий
+	_eventsNames = getEventsList(_contractAbi); //Получаем объект, в котором ключи - это имена событий, а значения - число таких событий.
 	const clearEventsBt = document.getElementById('clearEventsBt');
 	clearEventsBt.innerHTML = _interfaceLang.clearListBt;
 	const pauseResumeBt = document.getElementById('pauseResumeBt');
@@ -212,41 +212,45 @@ function onContractInput()
 	//Фильтр событий
 	document.getElementById('eventsFilter').hidden = false;
 	const eventsSelector = document.querySelector('#eventsFilter > div:first-child');
-	let eventsNamesCb = [];
-	_eventsNames.forEach(name =>
-		{
-			let auxElement = document.createElement('span');
-			auxElement.innerHTML = name;
-			eventsSelector.append(auxElement);
-			auxElement = document.createElement('input');
-			auxElement.type = 'checkbox';
-			auxElement.checked = true;
-			auxElement.value = name;
-			eventsSelector.append(auxElement);
-			eventsNamesCb.push(auxElement);
-			auxElement.addEventListener('change', () =>
-				{
-					eventsList.forEach(event =>
-						{
-							if (event.eventName === name) togleListItem(auxElement.checked, event.eventListElement);
-						});
-				});
-		});
+	let eventsNamesCb = {}; //Объект, где ключи - имена событий, а значения - объект, содержащий checkbox и текст к нему.
+	for (let name in _eventsNames)
+	{
+		//checkbox
+		let auxElement = document.createElement('input');
+		auxElement.type = 'checkbox';
+		auxElement.checked = true;
+		auxElement.value = name;
+		eventsSelector.append(auxElement);
+		auxElement.addEventListener('change', () =>
+			{
+				eventsList.forEach(event =>
+					{
+						if (event.eventName === name) togleListItem(auxElement.checked, event.eventListElement);
+					});
+			});
+		eventsNamesCb[name] = {checkbox: {}, span: {}};
+		eventsNamesCb[name].checkbox = auxElement;
+		//Текст checkbox'а
+		auxElement = document.createElement('span');
+		auxElement.innerHTML = `${name} (${_eventsNames[name]})`;
+		eventsNamesCb[name].span = auxElement;
+		eventsSelector.append(auxElement);
+	}
 	selectAllBt = document.getElementById('selectAllBt');
 	selectAllBt.hidden = false;
 	selectAllBt.innerHTML = _interfaceLang.selectAllBt;
 	selectAllBt.addEventListener('click', () =>
 		{
-			eventsNamesCb.forEach(el => el.checked = true);
-			eventsList.forEach(event => togleListItem(true, event.eventListElement));
+			for (let name in eventsNamesCb) eventsNamesCb[name].checkbox.checked = true;
+			for (let event of eventsList) togleListItem(true, event.eventListElement);
 		});
 	unselectAllBt = document.getElementById('unselectAllBt');
 	unselectAllBt.hidden = false;
 	unselectAllBt.innerHTML = _interfaceLang.unselectAllBt;
 	unselectAllBt.addEventListener('click', () =>
 		{
-			eventsNamesCb.forEach(el => el.checked = false);
-			eventsList.forEach(event => togleListItem(false, event.eventListElement));
+			for (let name in eventsNamesCb) eventsNamesCb[name].checkbox.checked = false;
+			for (let event of eventsList) togleListItem(false, event.eventListElement);
 		});
 	//*******************
 	contract.events.allEvents((err, event) =>
@@ -281,7 +285,8 @@ function onContractInput()
 					}
 					auxHtml = auxHtml.slice(0, auxHtml.length - 5); //Удаляем последнее <br/>
 					el.innerHTML = auxHtml; 
-
+					_eventsNames[event.event]++;
+					eventsNamesCb[event.event].span.innerHTML = `${event.event} (${_eventsNames[event.event]})`;
 					clearEventsBt.hidden = false;
 					pauseResumeBt.hidden = false;
 					noEventsMsg.hidden = true;
@@ -308,8 +313,9 @@ function onContractInput()
 		});
 	function isEventSelected(eventName)
 	{
-		for (let el of eventsNamesCb)
+		for (let name in eventsNamesCb)
 		{
+			let el = eventsNamesCb[name].checkbox;
 			if (el.value === eventName) return el.checked;
 		}
 		return false;
