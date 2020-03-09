@@ -58,12 +58,12 @@ body > div
 	word-wrap: break-word;
 	display: block;
 	counter-increment: events-counter;
-	margin-right: 2rem;
+	border: 1px green solid;
 }
 #events li:before
 {
 	content: counter(events-counter) ".";
-	display: inline-block;
+	display: inline;
 	color: red;
 	border: 1px red solid;
 	margin-left: -2rem;
