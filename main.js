@@ -246,7 +246,7 @@ function onContractInput()
 					noEventsMsg.hidden = true;
 					eventsHolder.append(el);
 					let visibility = isEventSelected(event.event);
-					togleElement(visibility, el);
+					togleListItem(visibility, el);
 					if (visibility)	scrollToDiv.scrollIntoView(false);
 				}
 			}
@@ -271,7 +271,7 @@ function onContractInput()
 				{
 					eventsList.forEach(event =>
 						{
-							if (event.eventName === name) togleElement(auxElement.checked, event.eventListElement);
+							if (event.eventName === name) togleListItem(auxElement.checked, event.eventListElement);
 						});
 				});
 		});
@@ -281,7 +281,7 @@ function onContractInput()
 	selectAllBt.addEventListener('click', () =>
 		{
 			eventsNamesCb.forEach(el => el.checked = true);
-			eventsList.forEach(event => togleElement(true, event.eventListElement));
+			eventsList.forEach(event => togleListItem(true, event.eventListElement));
 		});
 	unselectAllBt = document.getElementById('unselectAllBt');
 	unselectAllBt.hidden = false;
@@ -289,7 +289,7 @@ function onContractInput()
 	unselectAllBt.addEventListener('click', () =>
 		{
 			eventsNamesCb.forEach(el => el.checked = false);
-			eventsList.forEach(event => togleElement(false, event.eventListElement));
+			eventsList.forEach(event => togleListItem(false, event.eventListElement));
 		});
 	//*******************
 		clearEventsBt.addEventListener('click', () =>
@@ -315,7 +315,7 @@ function onContractInput()
 		return false;
 	}
 }
-function togleElement(visibility, element)
+function togleListItem(visibility, element)
 {
-	element.style = visibility ? 'display: block' : 'display: none';
+	element.style = visibility ? 'display: list-item' : 'display: none';
 }

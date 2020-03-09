@@ -48,25 +48,10 @@ body > div
 	width: 38.2%; /*В соответствии с margin в body.*/
 	z-index: 1;
 }
-#events ol
-{
-	list-style-type: none;
-	counter-reset: events-counter;
-}
 #events li
 {
 	word-wrap: break-word;
-	display: block;
-	counter-increment: events-counter;
-	border: 1px green solid;
-}
-#events li:before
-{
-	content: counter(events-counter) ".";
-	display: inline;
-	color: red;
-	border: 1px red solid;
-	margin-left: -2rem;
+	display: list-item;
 }
 .message
 {
