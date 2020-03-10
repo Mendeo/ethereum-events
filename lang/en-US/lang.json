@@ -14,5 +14,8 @@
 	"donateBt": "Send ETH",
 	"donateThankYou": "Thank you!",
 	"selectAllBt": "Select all",
-	"unselectAllBt": "Unselect all"
+	"unselectAllBt": "Unselect all",
+	"filterTitle": "Filter by events names",
+	"showingMsg": "Showing",
+	"from": "from"
 }

@@ -14,5 +14,8 @@
 	"donateBt": "Отправить ETH",
 	"donateThankYou": "Спасибо!",
 	"selectAllBt": "Выбрать всё",
-	"unselectAllBt": "Убрать всё"
+	"unselectAllBt": "Убрать всё",
+	"filterTitle": "Фильтр по именам событий",
+	"showingMsg": "Показано",
+	"from": "из"
 }

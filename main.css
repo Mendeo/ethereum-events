@@ -144,19 +144,22 @@ button
 }
 #eventsFilter > div:first-of-type /*Контейнер для всех чекбоксов*/
 {
-	border: 1px solid green;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
 	flex-wrap: wrap;
 	max-height: 5rem;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 #eventsFilter > div:first-of-type > div /*Отдельно чекбоксы*/
 {
-	border: 1px solid red;
 	flex-basis: 23.4%;
 	padding: 0.2rem;
+	white-space: nowrap;
+}
+#eventsFilter > p:last-of-type /*Счётчик событий*/
+{
+	margin-top: 0.3rem;
 }
 /*End filter block*/
 @media screen and (max-width: 1080px)
@@ -174,6 +177,11 @@ button
 	{
 		height: 2rem;
 		font-size: 120%;
+	}
+	#eventsFilter input
+	{
+		height: inherit;
+		font-size: inherit;
 	}
 	textarea
 	{
@@ -204,7 +212,7 @@ button
 	{
 		font-size: 120%;
 	}
-	#inputData span
+	span
 	{
 			font-size: 120%;
 	}

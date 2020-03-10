@@ -200,9 +200,7 @@ function onContractInput()
 	const eventsHolder = document.getElementById('events');
 	const scrollToDiv = document.getElementById('scrollToDiv');
 	let isPaused = false;
-	const noEventsMsg = document.getElementById('noEventsMsg');
-	noEventsMsg.innerHTML = _interfaceLang.noEventsMsg;
-	noEventsMsg.hidden = false;
+
 	//Для тестирования.
 	//let testEl = document.createElement('li');
 	//testEl.innerHTML = `${new Date().toString()} тестирование вывода.`;
@@ -210,7 +208,13 @@ function onContractInput()
 	//Конец тестирования.
 	
 	//Фильтр событий
+	const filterTitle = document.querySelector('#eventsFilter > p:first-of-type');
+	filterTitle.innerHTML = _interfaceLang.filterTitle;
+	let totalEvents = 0;
+	let showingEvents = totalEvents;
 	document.getElementById('eventsFilter').hidden = false;
+	const eventsCounter = document.querySelector('#eventsFilter > p:last-of-type');
+	updateCounter();
 	const eventsSelector = document.querySelector('#eventsFilter > div:first-of-type');
 	let eventsNamesCb = {}; //Объект, где ключи - имена событий, а значения - объект, содержащий checkbox и текст к нему.
 	for (let name in _eventsNames)
@@ -226,8 +230,21 @@ function onContractInput()
 			{
 				eventsList.forEach(event =>
 					{
-						if (event.eventName === name) togleListItem(eventsNamesCb[name].checkbox.checked, event.eventListElement);
+						if (event.eventName === name) 
+						{
+							let checked = eventsNamesCb[name].checkbox.checked;
+							togleListItem(checked, event.eventListElement);
+							if (checked)
+							{
+								showingEvents++;
+							}
+							else
+							{
+								showingEvents--;
+							}
+						}
 					});
+				updateCounter();
 			});
 		//Текст checkbox'а
 		auxElement = document.createElement('span');
@@ -255,7 +272,6 @@ function onContractInput()
 			for (let event of eventsList) togleListItem(false, event.eventListElement);
 		});
 	//*******************
-	/*
 	contract.events.allEvents((err, event) =>
 		{
 			if (!isPaused)
@@ -266,7 +282,8 @@ function onContractInput()
 				}
 				else
 				{
-					let d = new Date();					
+					totalEvents++;
+					let d = new Date();
 					let el = document.createElement('li')
 					eventsList.push({eventName: event.event, eventListElement: el});
 					let dateOptions =
@@ -290,24 +307,29 @@ function onContractInput()
 					el.innerHTML = auxHtml; 
 					_eventsNames[event.event]++;
 					eventsNamesCb[event.event].span.innerHTML = `${event.event} (${_eventsNames[event.event]})`;
+
 					clearEventsBt.hidden = false;
 					pauseResumeBt.hidden = false;
-					noEventsMsg.hidden = true;
 					eventsHolder.append(el);
 					let visibility = isEventSelected(event.event);
 					togleListItem(visibility, el);
-					if (visibility)	scrollToDiv.scrollIntoView(false);
+					if (visibility)	
+					{
+						scrollToDiv.scrollIntoView(false);
+						showingEvents++;
+					}
+					updateCounter();
 				}
 			}
 		});
-		*/
 		clearEventsBt.addEventListener('click', () =>
 		{
 			eventsList.forEach(event => event.eventName.remove());
 			eventsList.length = 0;
 			clearEventsBt.hidden = true;
 			pauseResumeBt.hidden = true;
-			noEventsMsg.hidden = false;
+			totalEvents = 0;
+			for (name in _eventsNames) _eventsNames[name] = 0;
 		});
 	pauseResumeBt.addEventListener('click', () =>
 		{
@@ -315,6 +337,7 @@ function onContractInput()
 			pauseResumeBt.innerHTML = isPaused ? _interfaceLang.resumeBt : _interfaceLang.pauseBt;
 			clearEventsBt.disabled = isPaused;
 		});
+
 	function isEventSelected(eventName)
 	{
 		for (let name in eventsNamesCb)
@@ -324,7 +347,20 @@ function onContractInput()
 		}
 		return false;
 	}
+
+	function updateCounter()
+	{
+		if (totalEvents === 0)
+		{
+			eventsCounter.innerHTML =_interfaceLang.noEventsMsg; 
+		}
+		else
+		{
+			eventsCounter.innerHTML = `${_interfaceLang.showingMsg} ${showingEvents} ${_interfaceLang.from} ${totalEvents}`;
+		}
+	}
 }
+
 function togleListItem(visibility, element)
 {
 	element.style = visibility ? 'display: list-item' : 'display: none';
