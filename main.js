@@ -108,67 +108,73 @@ function onTranslationLoad()
 			donateBt.innerHTML = _interfaceLang.donateBt;
 			const donateHeader = document.getElementById('donateHeader');
 			donateHeader.innerHTML = _interfaceLang.donateHeader;
-		}
-		donateBt.addEventListener('click', () =>
-			{
-				let account;
-				let web3
-				const donateMsg = document.getElementById('thankYou');
-				donateMsg.hidden = false;
-				_provider.enable().then(accounts =>
-					{
-						account = accounts[0];
-						web3 = new Web3(Web3.givenProvider);
-						return web3.eth.net.getNetworkType(); 
-					}).then(netType =>
-					{
-						console.log(netType);
-						let value = donateValue.value;
-						if (netType !== 'main') 
+			const sendMessageToMeHeader = document.getElementById('sendMessageToMeHeader');
+			sendMessageToMeHeader.innerHTML = _interfaceLang.donateSendMessageToMeHeader + ':';
+			donateBt.addEventListener('click', () =>
+				{
+					let account;
+					let web3
+					const donateMsg = document.getElementById('thankYou');
+					donateMsg.hidden = false;
+					_provider.enable().then(accounts =>
 						{
-							donateMsg.innerHTML = _interfaceLang.donateNotMainNetwork;
-							donateMsg.style = 'color: red';
-						}
-						else if(isNaN(Number(value)) || Number(value) <=0)
+							account = accounts[0];
+							web3 = new Web3(Web3.givenProvider);
+							return web3.eth.net.getNetworkType(); 
+						}).then(netType =>
 						{
-							donateMsg.innerHTML = _interfaceLang.donateIcorrectValue;
-							donateMsg.style = 'color: red';
-						}
-						else
-						{
-							web3.eth.sendTransaction(
+							let value = donateValue.value;
+							if (netType !== 'private') 
 							{
-								from: account,
-								to: DONATION_ADDRESS,
-								value: web3.utils.toWei(value)
-							}, (err, res) =>
+								donateMsg.innerHTML = _interfaceLang.donateNotMainNetwork;
+								donateMsg.style = 'color: red';
+							}
+							else if(isNaN(Number(value)) || Number(value) <= 0)
 							{
-								if (err)
+								donateMsg.innerHTML = _interfaceLang.donateIcorrectValue;
+								donateMsg.style = 'color: red';
+							}
+							else
+							{
+								web3.eth.sendTransaction(
 								{
-									donateMsg.innerHTML = _interfaceLang.metaMaskError + ': ' + err.message;
-									donateMsg.style = 'color: red';
-								}
-								else									
+									from: account,
+									to: DONATION_ADDRESS,
+									value: web3.utils.toWei(value)
+								}, (err, res) =>
 								{
-									//Транзакция прошла успешно.
-									donateBt.hidden = true;
-									donateHeader.hidden = true;
-									donateValue.hidden = true;
-									donateMsg.innerHTML = _interfaceLang.donateThankYou;
-									donateMsg.style = 'color: green';
-									let expiresDate = new Date();
-									expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
-									document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
-								}
+									if (err)
+									{
+										donateMsg.innerHTML = _interfaceLang.metaMaskError + ': ' + err.message;
+										donateMsg.style = 'color: red';
+									}
+									else									
+									{
+										//Транзакция прошла успешно.
+										donateBt.hidden = true;
+										donateHeader.hidden = true;
+										donateValue.hidden = true;
+										donateMsg.innerHTML = _interfaceLang.donateThankYou;
+										donateMsg.style = 'color: green';									
+										let expiresDate = new Date();
+										expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
+										sendMessageToMeHeader.hidden = true;
+										document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
+										//Отправляем сообщение мне.
+										const textarea = document.getElementById('messageToMe');
+										let text = textarea.value;
+										textarea.hidden = true;
+										console.log(text);
+									}
+								});
+							}
+						}).catch((err) =>
+							{
+								donateMsg.innerHTML = _interfaceLang.metaMaskError + ': ' + err.message;
+								donateMsg.style = 'color: red';
 							});
-						}
-					}).catch((err) =>
-						{
-							donateMsg.innerHTML = _interfaceLang.metaMaskError + ': ' + err.message;
-							donateMsg.style = 'color: red';
-						});
-			});
-		
+				});
+		}
 		//*******End donation block*******
 		_provider.on('networkChanged', () =>
 			{
