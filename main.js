@@ -324,12 +324,15 @@ function onContractInput()
 		});
 		clearEventsBt.addEventListener('click', () =>
 		{
-			eventsList.forEach(event => event.eventName.remove());
+			eventsList.forEach(event => event.eventListElement.remove());
 			eventsList.length = 0;
 			clearEventsBt.hidden = true;
 			pauseResumeBt.hidden = true;
 			totalEvents = 0;
+			showingEvents = 0;
+			updateCounter();
 			for (name in _eventsNames) _eventsNames[name] = 0;
+			for (name in eventsNamesCb) eventsNamesCb[name].span.innerHTML = `${name} (0)`;
 		});
 	pauseResumeBt.addEventListener('click', () =>
 		{

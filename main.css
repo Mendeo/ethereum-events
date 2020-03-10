@@ -202,7 +202,9 @@ button
 	}
 	.controlButtons button
 	{
-		width: 49%;
+		width: 45%;
+		height: inherit;
+		font-size: inherit;
 	}
 	.header
 	{
@@ -212,8 +214,12 @@ button
 	{
 		font-size: 120%;
 	}
-	span
+	#inputData span
 	{
 			font-size: 120%;
+	}
+	#eventsFilter span
+	{
+		font-size: 120%;
 	}
 }
