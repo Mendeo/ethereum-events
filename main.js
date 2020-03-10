@@ -262,6 +262,8 @@ function onContractInput()
 		{
 			for (let name in eventsNamesCb) eventsNamesCb[name].checkbox.checked = true;
 			for (let event of eventsList) togleListItem(true, event.eventListElement);
+			showingEvents = totalEvents;
+			updateCounter();
 		});
 	unselectAllBt = document.getElementById('unselectAllBt');
 	unselectAllBt.hidden = false;
@@ -270,6 +272,8 @@ function onContractInput()
 		{
 			for (let name in eventsNamesCb) eventsNamesCb[name].checkbox.checked = false;
 			for (let event of eventsList) togleListItem(false, event.eventListElement);
+			showingEvents = 0;
+			updateCounter();
 		});
 	//*******************
 	contract.events.allEvents((err, event) =>
