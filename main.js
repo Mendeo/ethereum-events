@@ -119,12 +119,12 @@ function onTranslationLoad()
 					{
 						account = accounts[0];
 						web3 = new Web3(Web3.givenProvider);
-						return web3.eth.net.getId(); 
-					}).then(netId =>
+						return web3.eth.net.getNetworkType(); 
+					}).then(netType =>
 					{
-						console.log(netId);
+						console.log(netType);
 						let value = donateValue.value;
-						if (netId !== 1) 
+						if (netType !== 'main') 
 						{
 							donateMsg.innerHTML = _interfaceLang.donateNotMainNetwork;
 							donateMsg.style = 'color: red';
@@ -145,7 +145,7 @@ function onTranslationLoad()
 							{
 								if (err)
 								{
-									donateMsg.innerHTML = _interfaceLang.metaMaskError + err.message;
+									donateMsg.innerHTML = _interfaceLang.metaMaskError + ': ' + err.message;
 									donateMsg.style = 'color: red';
 								}
 								else									
@@ -164,13 +164,13 @@ function onTranslationLoad()
 						}
 					}).catch((err) =>
 						{
-							donateMsg.innerHTML = _interfaceLang.metaMaskError + err.message;
+							donateMsg.innerHTML = _interfaceLang.metaMaskError + ': ' + err.message;
 							donateMsg.style = 'color: red';
 						});
 			});
 		
 		//*******End donation block*******
-		_provider.on('chainChanged', () =>
+		_provider.on('networkChanged', () =>
 			{
 				document.location.reload();
 			});
@@ -178,7 +178,7 @@ function onTranslationLoad()
 			{
 				document.location.reload();
 			});
-		_provider.autoRefreshOnNetworkChange = true;
+		_provider.autoRefreshOnNetworkChange = false;
 	}
 	else
 	{
