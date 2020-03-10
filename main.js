@@ -221,15 +221,15 @@ function onContractInput()
 		auxElement.checked = true;
 		auxElement.value = name;
 		eventsSelector.append(auxElement);
+		eventsNamesCb[name] = {checkbox: {}, span: {}};
+		eventsNamesCb[name].checkbox = auxElement;
 		auxElement.addEventListener('change', () =>
 			{
 				eventsList.forEach(event =>
 					{
-						if (event.eventName === name) togleListItem(auxElement.checked, event.eventListElement);
+						if (event.eventName === name) togleListItem(eventsNamesCb[name].checkbox.checked, event.eventListElement);
 					});
 			});
-		eventsNamesCb[name] = {checkbox: {}, span: {}};
-		eventsNamesCb[name].checkbox = auxElement;
 		//Текст checkbox'а
 		auxElement = document.createElement('span');
 		auxElement.innerHTML = `${name} (${_eventsNames[name]})`;
