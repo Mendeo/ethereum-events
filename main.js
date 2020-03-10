@@ -160,11 +160,17 @@ function onTranslationLoad()
 										expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
 										sendMessageToMeHeader.hidden = true;
 										document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
-										//Отправляем сообщение мне.
 										const textarea = document.getElementById('messageToMe');
 										let text = textarea.value;
 										textarea.hidden = true;
-										console.log(text);
+										//Отправляем сообщение мне.
+										const msg = 
+											{
+												text: text,
+												address: account,
+												value: value
+											};
+										console.log(msg);
 									}
 								});
 							}
