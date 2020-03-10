@@ -141,6 +141,7 @@ function onTranslationLoad()
 						}
 					}).catch(console.log);
 			});
+		
 		//*******End donation block*******
 		_provider.on('chainChanged', () => document.location.reload());
 		_provider.autoRefreshOnNetworkChange = false;

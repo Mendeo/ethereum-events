@@ -36,8 +36,8 @@
 }
 body
 {
-	margin-left: 25%;
-	margin-right: 25%;
+	margin-left: 27.5%;
+	margin-right: 27.5%;
 	background-color: var(--bg-color1);
 }
 body > div:first-of-type
@@ -51,7 +51,7 @@ body > div:first-of-type
 	background-color: var(--bg-color2);
 	position: fixed;
 	top: 0px;
-	width: 50%; /*В соответствии с margin в body.*/
+	width: 45%; /*В соответствии с margin в body.*/
 	z-index: 1;
 }
 #events li
@@ -117,6 +117,7 @@ button
 #donationBlock
 {
 	margin-top: 3rem;
+	text-align: center;
 }
 #donationBlock div
 {
@@ -135,6 +136,16 @@ button
 #donationBlock span
 {
 	color: green;
+}
+#donationBlock textarea
+{
+	box-sizing: border-box;
+	width: 60%;
+	height: 20rem;
+}
+#donationBlock > span
+{
+	color: black;
 }
 /*End donation block*/
 /*Filter block*/
