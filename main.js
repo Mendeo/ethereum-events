@@ -211,7 +211,7 @@ function onContractInput()
 	
 	//Фильтр событий
 	document.getElementById('eventsFilter').hidden = false;
-	const eventsSelector = document.querySelector('#eventsFilter > div:first-child');
+	const eventsSelector = document.querySelector('#eventsFilter > div:first-of-type');
 	let eventsNamesCb = {}; //Объект, где ключи - имена событий, а значения - объект, содержащий checkbox и текст к нему.
 	for (let name in _eventsNames)
 	{
@@ -220,7 +220,6 @@ function onContractInput()
 		auxElement.type = 'checkbox';
 		auxElement.checked = true;
 		auxElement.value = name;
-		eventsSelector.append(auxElement);
 		eventsNamesCb[name] = {checkbox: {}, span: {}};
 		eventsNamesCb[name].checkbox = auxElement;
 		auxElement.addEventListener('change', () =>
@@ -234,6 +233,9 @@ function onContractInput()
 		auxElement = document.createElement('span');
 		auxElement.innerHTML = `${name} (${_eventsNames[name]})`;
 		eventsNamesCb[name].span = auxElement;
+		auxElement = document.createElement('div'); //Поместим чекбокс и текст к нему в отдельный div, чтобы управлять им через css.
+		auxElement.append(eventsNamesCb[name].checkbox);
+		auxElement.append(eventsNamesCb[name].span);
 		eventsSelector.append(auxElement);
 	}
 	selectAllBt = document.getElementById('selectAllBt');
@@ -253,6 +255,7 @@ function onContractInput()
 			for (let event of eventsList) togleListItem(false, event.eventListElement);
 		});
 	//*******************
+	/*
 	contract.events.allEvents((err, event) =>
 		{
 			if (!isPaused)
@@ -297,6 +300,7 @@ function onContractInput()
 				}
 			}
 		});
+		*/
 		clearEventsBt.addEventListener('click', () =>
 		{
 			eventsList.forEach(event => event.eventName.remove());
