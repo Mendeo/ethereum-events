@@ -23,6 +23,7 @@ const DONATION_COOKIE_EXPIRES_MONTH = 3;
 const DONATION_DEFAULT_VALUE = 0.01;
 const DEFAULT_LANG = 'en-US'
 const _provider = window['ethereum'];
+const _msgEl = document.getElementById('msg'); //Сообщения, возникающие при взаимодействии с MetaMask.
 let _contractAddress;
 let _contractAbi;
 let _eventsNames = [];
@@ -85,7 +86,12 @@ function onTranslationLoad()
 		connectBt.innerHTML = _interfaceLang.connectBt;
 		connectBt.addEventListener('click', () =>
 			{
-				_provider.enable().then(onConnect).catch(console.log);
+				_msgEl.hidden = false;
+				_msgEl.innerHTML = _interfaceLang.waitingMetaMask;
+				_provider.enable().then(onConnect).catch((error) => 
+					{
+						_msgEl.innerHTML = _interfaceLang.metaMaskError + ': ' + error.message;
+					});
 				connectBt.hidden = true;
 				donationBlock.hidden = true;
 				info.hidden = true;
@@ -142,17 +148,16 @@ function onTranslationLoad()
 	else
 	{
 		const msg = _interfaceLang.noProviderError;
+		_msgEl.hidden = false;
 		alert(msg);
-		const msgEl = document.createElement('h4');
-		msgEl.style="margin-top: 50px; color: red; text-align: center";
-		msgEl.innerHTML = msg;
-		info.append(msgEl);
+		_msgEl.innerHTML = msg;
 		connectBt.hidden = true;
 	}
 }
 
 function onConnect(accounts)
 {
+	_msgEl.hidden = true;
 	const account = accounts[0];
 	const userState = document.getElementById('connectionInfo');
 	userState.innerHTML = `${_interfaceLang.accountLb}: ${account}<br/>`;

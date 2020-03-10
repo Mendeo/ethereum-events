@@ -17,5 +17,7 @@
 	"unselectAllBt": "Unselect all",
 	"filterTitle": "Filter by events names",
 	"showingMsg": "Shown",
-	"from": "from"
+	"from": "from",
+	"waitingMetaMask": "Waiting MetaMask."
+	"metaMaskError": "MetaMask returned an error"
 }

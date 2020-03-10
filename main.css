@@ -28,13 +28,19 @@
 	--bg-color1: rgb(237, 238, 239);
 	--bg-color2: white;
 }
+#msg /*Сообщения, возникающие при взаимодействии с MetaMask*/
+{
+	margin-top: 50px;
+   	color: red;
+	text-align: center;
+}
 body
 {
 	margin-left: 25%;
 	margin-right: 25%;
 	background-color: var(--bg-color1);
 }
-body > div
+body > div:first-of-type
 {
 	z-index: 2;
 	position: relative; /*Чтобы поместить над #bgDiv*/

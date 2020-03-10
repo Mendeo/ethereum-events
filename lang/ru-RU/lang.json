@@ -17,5 +17,7 @@
 	"unselectAllBt": "Убрать всё",
 	"filterTitle": "Фильтр по именам событий",
 	"showingMsg": "Показано",
-	"from": "из"
+	"from": "из",
+	"waitingMetaMask": "Ожидание ответа от MetaMask.",
+	"metaMaskError": "MetaMask сообщает об ошибке"
 }
