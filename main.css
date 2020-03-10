@@ -143,7 +143,7 @@ button
 	width: 60%;
 	height: 20rem;
 }
-#donationBlock > span
+#donationBlock > span /*Оставить сообщение получателю*/
 {
 	color: black;
 }

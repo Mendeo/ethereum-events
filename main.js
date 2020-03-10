@@ -111,40 +111,74 @@ function onTranslationLoad()
 		}
 		donateBt.addEventListener('click', () =>
 			{
+				let account;
+				let web3
+				const donateMsg = document.getElementById('thankYou');
+				donateMsg.hidden = false;
 				_provider.enable().then(accounts =>
 					{
-						const web3 = new Web3(Web3.givenProvider);
+						account = accounts[0];
+						web3 = new Web3(Web3.givenProvider);
+						return web3.eth.net.getId(); 
+					}).then(netId =>
+					{
+						console.log(netId);
 						let value = donateValue.value;
-						if(!isNaN(Number(value)))
+						if (netId !== 1) 
+						{
+							donateMsg.innerHTML = _interfaceLang.donateNotMainNetwork;
+							donateMsg.style = 'color: red';
+						}
+						else if(isNaN(Number(value)) || Number(value) <=0)
+						{
+							donateMsg.innerHTML = _interfaceLang.donateIcorrectValue;
+							donateMsg.style = 'color: red';
+						}
+						else
 						{
 							web3.eth.sendTransaction(
 							{
-								from: accounts[0],
+								from: account,
 								to: DONATION_ADDRESS,
 								value: web3.utils.toWei(value)
 							}, (err, res) =>
 							{
-								if (res)
+								if (err)
+								{
+									donateMsg.innerHTML = _interfaceLang.metaMaskError + err.message;
+									donateMsg.style = 'color: red';
+								}
+								else									
 								{
 									//Транзакция прошла успешно.
 									donateBt.hidden = true;
 									donateHeader.hidden = true;
 									donateValue.hidden = true;
-									const thankYou = document.getElementById('thankYou');
-									thankYou.hidden = false;
-									thankYou.innerHTML = _interfaceLang.donateThankYou;
+									donateMsg.innerHTML = _interfaceLang.donateThankYou;
+									donateMsg.style = 'color: green';
 									let expiresDate = new Date();
 									expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
 									document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
 								}
 							});
 						}
-					}).catch(console.log);
+					}).catch((err) =>
+						{
+							donateMsg.innerHTML = _interfaceLang.metaMaskError + err.message;
+							donateMsg.style = 'color: red';
+						});
 			});
 		
 		//*******End donation block*******
-		_provider.on('chainChanged', () => document.location.reload());
-		_provider.autoRefreshOnNetworkChange = false;
+		_provider.on('chainChanged', () =>
+			{
+				document.location.reload();
+			});
+		_provider.on('accountsChanged', () =>
+			{
+				document.location.reload();
+			});
+		_provider.autoRefreshOnNetworkChange = true;
 	}
 	else
 	{

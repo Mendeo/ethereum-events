@@ -13,6 +13,7 @@
 	"donateHeader": "Пожертвовать эфир!",
 	"donateBt": "Отправить ETH",
 	"donateThankYou": "Спасибо!",
+	"donateNotMainNetwork": "Вы не в основной сети Ethereum",
 	"selectAllBt": "Выбрать всё",
 	"unselectAllBt": "Убрать всё",
 	"filterTitle": "Фильтр по именам событий",

@@ -13,6 +13,7 @@
 	"donateHeader": "Donate ether!",
 	"donateBt": "Send ETH",
 	"donateThankYou": "Thank you!",
+	"donateNotMainNetwork": "You are not in main Ethereum network",
 	"selectAllBt": "Select all",
 	"unselectAllBt": "Unselect all",
 	"filterTitle": "Filter by events names",
