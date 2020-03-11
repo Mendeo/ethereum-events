@@ -22,6 +22,7 @@ const DONATION_COOKIE_NAME = 'donateDone';
 const DONATION_COOKIE_EXPIRES_MONTH = 3;
 const DONATION_DEFAULT_VALUE = 0.01;
 const DEFAULT_LANG = 'en-US'
+const MESSAGE_SERVER = 'https://mendeo.ru:12235'
 const _provider = window['ethereum'];
 const _msgEl = document.getElementById('msg'); //Сообщения, возникающие при взаимодействии с MetaMask.
 let _contractAddress;
@@ -170,7 +171,21 @@ function onTranslationLoad()
 												address: account,
 												value: value
 											};
-										console.log(msg);
+										fetch(MESSAGE_SERVER,
+											{
+												method: 'POST',
+												headers:
+												{
+													'Content-Type': 'application/json'
+												},
+												body: JSON.stringify(msg)
+											}).then((res) =>
+											{
+												if (!res.ok) alert(_interfaceLang.youMessageLost + '.');
+											}).catch((err) =>
+												{
+													alert(_interfaceLang.youMessageLost + ': ' + err);
+												});
 									}
 								});
 							}

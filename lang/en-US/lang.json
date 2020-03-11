@@ -22,5 +22,6 @@
 	"showingMsg": "Shown",
 	"from": "from",
 	"waitingMetaMask": "Waiting MetaMask."
-	"metaMaskError": "MetaMask returned an error"
+	"metaMaskError": "MetaMask returned an error",
+	"youMessageLost": "Unfortunately, Your message was not delivered"
 }

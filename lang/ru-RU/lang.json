@@ -22,5 +22,6 @@
 	"showingMsg": "Показано",
 	"from": "из",
 	"waitingMetaMask": "Ожидание ответа от MetaMask.",
-	"metaMaskError": "MetaMask сообщает об ошибке"
+	"metaMaskError": "MetaMask сообщает об ошибке",
+	"youMessageLost": "К сожалению, Ваше сообщение не доставлено"
 }
