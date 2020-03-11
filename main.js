@@ -115,7 +115,7 @@ function onTranslationLoad()
 				{
 					let account;
 					let web3
-					const donateMsg = document.getElementById('thankYou');
+					const donateMsg = document.getElementById('donationStatusMsg');
 					donateMsg.hidden = false;
 					_provider.enable().then(accounts =>
 						{
