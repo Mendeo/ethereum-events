@@ -125,7 +125,7 @@ function onTranslationLoad()
 						}).then(netType =>
 						{
 							let value = donateValue.value;
-							if (netType !== 'main') //'private' - for test
+							if (netType !== 'private') //'private' - for test
 							{
 								donateMsg.innerHTML = _interfaceLang.donateNotMainNetwork;
 								donateMsg.style = 'color: red';
@@ -149,14 +149,14 @@ function onTranslationLoad()
 										donateMsg.innerHTML = _interfaceLang.metaMaskError + ': ' + err.message;
 										donateMsg.style = 'color: red';
 									}
-									else									
+									else
 									{
 										//Транзакция прошла успешно.
 										donateBt.hidden = true;
 										donateHeader.hidden = true;
 										donateValue.hidden = true;
 										donateMsg.innerHTML = _interfaceLang.donateThankYou;
-										donateMsg.style = 'color: green';									
+										donateMsg.style = 'color: green';
 										let expiresDate = new Date();
 										expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
 										sendMessageToMeHeader.hidden = true;
