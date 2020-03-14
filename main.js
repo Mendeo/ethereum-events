@@ -176,7 +176,7 @@ function onTranslationLoad()
 												method: 'POST',
 												headers:
 												{
-													'Content-Type': 'application/json'
+													'Content-Type': 'text/palin' //'application/json' - not work for wix site (wix send 403 for options requests)
 												},
 												body: JSON.stringify(msg)
 											}).then((res) =>
