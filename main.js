@@ -125,7 +125,7 @@ function onTranslationLoad()
 						}).then(netType =>
 						{
 							let value = donateValue.value;
-							if (netType !== 'main') //'private' - for test
+							if (netType !== 'private') //'private' - for test
 							{
 								donateMsg.innerHTML = _interfaceLang.donateNotMainNetwork;
 								donateMsg.style = 'color: red';
