@@ -30,13 +30,21 @@ let _contractAbi;
 let _eventsNames = [];
 const _bgDiv = document.getElementById('bgDiv'); //Белый фон в центре.
 
+const APP_PATH = getAppPath();
+const _lang = navigator.browserLanguage || navigator.language || navigator.userLanguage || DEFAULT_LANG;
+let _interfaceLang;
+let _infoLang;
+
+start();
+
 //Зполняем белым фоном центр.
+fillBg();
+window.addEventListener('resize', fillBg);
+
 function fillBg()
 {
 	_bgDiv.style.height = document.documentElement.clientHeight + 'px';
 }
-fillBg();
-window.addEventListener('resize', fillBg);
 /***************************/
 
 function getAppPath()
@@ -46,13 +54,6 @@ function getAppPath()
 	if (aux) return path.slice(0, aux);
 	return path;
 }
-
-const APP_PATH = getAppPath();
-const _lang = navigator.browserLanguage || navigator.language || navigator.userLanguage || DEFAULT_LANG;
-let _interfaceLang;
-let _infoLang;
-
-start();
 
 async function start()
 {
