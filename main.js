@@ -75,49 +75,45 @@ function onTranslationLoad()
 	document.querySelector('head > meta[name="description"]').content = _interfaceLang.description; //Заполняем тег description
 	const info = document.getElementById('info');
 	info.hidden = false;
+	//Description
+	//Замена <lang: > из info.html на данные из lang.json
+	{
+		let langStartPos = 0;
+		let positions = [];
+		while (true)
+		{
+			langStartPos = _infoLang.indexOf('<lang:', langStartPos);
+			if (langStartPos === -1) break;
+			let langParamPos = langStartPos + 6;
+			let langEndPos = _infoLang.indexOf('>', langStartPos);
+			let param = _infoLang.slice(langParamPos, langEndPos);			
+			positions.push(
+				{
+					param: param,
+					start: langStartPos,
+					end: langEndPos,
+				});
+			langStartPos++;
+		}
+		let newInfo = ''
+		let pos = 0;
+		for (let i = 0; i < positions.length; i++)
+		{
+			newInfo += _infoLang.slice(pos, positions[i].start);
+			newInfo += _interfaceLang[positions[i].param];
+			pos = positions[i].end + 1;
+		}
+		newInfo += _infoLang.slice(pos, _infoLang.length);
+		_infoLang = newInfo;
+	}
+	//***************************************
+	info.innerHTML = _infoLang;
+	const connectBt = document.getElementById('connectBt');
+	connectBt.innerHTML = _interfaceLang.connectBt;
 	//Checking MetaMask
 	if (typeof window.ethereum !== 'undefined')
 	{
-		//Description
-		//Замена <lang: > из info.html на данные из lang.json
-		{
-			let langStartPos = 0;
-			let positions = [];
-			while (true)
-			{
-				langStartPos = _infoLang.indexOf('<lang:', langStartPos);
-				if (langStartPos === -1) break;
-				let langParamPos = langStartPos + 6;
-				let langEndPos = _infoLang.indexOf('>', langStartPos);
-				let param = _infoLang.slice(langParamPos, langEndPos);			
-				positions.push(
-					{
-						param: param,
-						start: langStartPos,
-						end: langEndPos,
-					});
-				langStartPos++;
-			}
-			let newInfo = ''
-			let pos = 0;
-			for (let i = 0; i < positions.length; i++)
-			{
-				newInfo += _infoLang.slice(pos, positions[i].start);
-				newInfo += _interfaceLang[positions[i].param];
-				pos = positions[i].end + 1;
-			}
-			newInfo += _infoLang.slice(pos, _infoLang.length);
-			_infoLang = newInfo;
-		}
-		//***************************************
-		info.innerHTML = _infoLang;
-		const infoConnectBt = document.getElementById('infoConnectBt');
-		if (infoConnectBt) infoConnectBt.innerHTML = _interfaceLang.connectBt;
-		const infoStartListenBt = document.getElementById('infoStartListenBt');
-		if (infoStartListenBt) infoStartListenBt.innerHTML = _interfaceLang.startListenBt;
-		//*******************
-		const connectBt = document.getElementById('connectBt');
-		connectBt.innerHTML = _interfaceLang.connectBt;
+		connectBt.disabled = false;
 		connectBt.addEventListener('click', () =>
 			{
 				_msgEl.hidden = false;
@@ -246,7 +242,6 @@ function onTranslationLoad()
 		_msgEl.hidden = false;
 		alert(msg);
 		_msgEl.innerHTML = msg;
-		connectBt.hidden = true;
 	}
 }
 
