@@ -71,6 +71,7 @@ async function fetchLang(fileName, isText)
 
 function onTranslationLoad()
 {
+	document.querySelector('head > meta[name="description"]').content = _interfaceLang.description; //Заполняем тег description
 	const info = document.getElementById('info');
 	info.hidden = false;
 	//Checking MetaMask

@@ -1,4 +1,5 @@
 {
+	"description": "Отслеживайте события смарт-контрактов в сети Ethereum.",
 	"connectBt": "Подключиться с MetaMask",
 	"startListenBt": "Начать слушать",
 	"accountLb": "Ваш адрес",

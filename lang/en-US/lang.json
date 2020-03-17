@@ -1,4 +1,5 @@
 {
+	"description": "Watch events of smart contracts in the Ethereum blockchain!",
 	"connectBt": "Connect with MetaMask",
 	"startListenBt": "Start listening",
 	"accountLb": "Your account",
