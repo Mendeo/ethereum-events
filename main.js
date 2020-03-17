@@ -77,6 +77,37 @@ function onTranslationLoad()
 	if (typeof window.ethereum !== 'undefined')
 	{
 		//Description
+		//Замена спец. вставок на данные из lang.json
+		{
+			let langStartPos = 0;
+			let positions = [];
+			while (true)
+			{
+				langStartPos = _infoLang.indexOf('<lang:', langStartPos);
+				if (langStartPos === -1) break;
+				let langParamPos = langStartPos + 6;
+				let langEndPos = _infoLang.indexOf('>', langStartPos);
+				let param = _infoLang.slice(langParamPos, langEndPos);			
+				positions.push(
+					{
+						param: param,
+						start: langStartPos,
+						end: langEndPos,
+					});
+				langStartPos++;
+			}
+			let newInfo = ''
+			let pos = 0;
+			for (let i = 0; i < positions.length; i++)
+			{
+				newInfo += _infoLang.slice(pos, positions[i].start);
+				newInfo += _interfaceLang[positions[i].param];
+				pos = positions[i].end + 1;
+			}
+			newInfo += _infoLang.slice(pos, _infoLang.length);
+			_infoLang = newInfo;
+		}
+		//***************************************
 		info.innerHTML = _infoLang;
 		const infoConnectBt = document.getElementById('infoConnectBt');
 		if (infoConnectBt) infoConnectBt.innerHTML = _interfaceLang.connectBt;
