@@ -21,7 +21,7 @@
 	"filterTitle": "Filter by events names",
 	"showingMsg": "Shown",
 	"from": "from",
-	"waitingMetaMask": "Waiting MetaMask."
+	"waitingMetaMask": "Waiting MetaMask.",
 	"metaMaskError": "MetaMask returned an error",
 	"youMessageLost": "Unfortunately, Your message was not delivered"
 }

@@ -77,7 +77,7 @@ function onTranslationLoad()
 	if (typeof window.ethereum !== 'undefined')
 	{
 		//Description
-		//Замена спец. вставок на данные из lang.json
+		//Замена <lang: > из info.html на данные из lang.json
 		{
 			let langStartPos = 0;
 			let positions = [];
