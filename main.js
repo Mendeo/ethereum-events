@@ -24,7 +24,10 @@ const DONATION_DEFAULT_VALUE = 0.01;
 const DEFAULT_LANG = 'en-US'
 const MESSAGE_SERVER = 'https://deorathemen.wixsite.com/messages/_functions/msg';
 const _provider = window['ethereum'];
-const _msgEl = document.getElementById('msg'); //Сообщения, возникающие при взаимодействии с MetaMask.
+const _msgEl = document.getElementById('msg'); //Общие сообщения, от MetaMask и проч.
+_msgEl.hidden = true; //Прячем пререндер для Яндекс робота.
+const _info = document.getElementById('info'); //Описание программы.
+_info.hidden = true; //Прячем пререндер для Яндекс робота.
 let _contractAddress;
 let _contractAbi;
 let _eventsNames = [];
@@ -73,8 +76,7 @@ async function fetchLang(fileName, isText)
 function onTranslationLoad()
 {
 	document.querySelector('head > meta[name="description"]').content = _interfaceLang.description; //Заполняем тег description
-	const info = document.getElementById('info');
-	info.hidden = false;
+	_info.hidden = false;
 	//Description
 	//Замена <lang: > из info.html на данные из lang.json
 	{
@@ -107,7 +109,7 @@ function onTranslationLoad()
 		_infoLang = newInfo;
 	}
 	//***************************************
-	info.innerHTML = _infoLang;
+	_info.innerHTML = _infoLang;
 	const connectBt = document.getElementById('connectBt');
 	connectBt.innerHTML = _interfaceLang.connectBt;
 	//Checking MetaMask
@@ -124,7 +126,7 @@ function onTranslationLoad()
 					});
 				connectBt.hidden = true;
 				donationBlock.hidden = true;
-				info.hidden = true;
+				_info.hidden = true;
 			});
 		//*******Donation block*******
 		const donationBlock = document.getElementById('donationBlock');

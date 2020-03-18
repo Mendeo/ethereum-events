@@ -28,7 +28,6 @@
 	<!---------------------------------------------------------------------------------------->
 	<title>ethereum-events</title>
 	<link rel="alternate" hreflang="x-default" href="http://ethereum-events.com/" />
-	<script src="pre.js" type="text/javascript"></script>
 	<script src="web3.min.js" type="text/javascript"></script>
 	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="images/favicon_180x180.png">
 	<link rel="icon" type="image/png" sizes="180x180" href="images/favicon_180x180.png">
@@ -41,7 +40,7 @@
 </head>
 <body>
 	<div>
-		<div id="info" hidden="false">
+		<div id="info">
 		<!--This is dynamic content. The snapshot in Russian is placed here for the Yandex robot-->
 			<h1 class="content header">Ethereum events</h1>
 			<h2 class="content header">Отслеживайте события, которые генерирует заданный смарт-контракт в сети Ethereum!</h2>
@@ -54,9 +53,9 @@
 			</ul>
 			<h3 class="content">Как пользоваться</h3>
 			<ol>
-			<li>Нажмите на кнопку &quot;<lang:connectBt>&quot;, тогда страница запросит соединение с блокчейном через MetaMask.</li>
+			<li>Нажмите на кнопку &quot;Подключиться с MetaMask&quot;, тогда страница запросит соединение с блокчейном через MetaMask.</li>
 			<li>После успешного соединения нужно ввести адрес смарт-контракта и его ABI.</li>
-			<li>Программа начнёт отслеживать события этого контракта после нажатия на кнопку &quot;<lang:startListenBt>&quot;.</li>
+			<li>Программа начнёт отслеживать события этого контракта после нажатия на кнопку &quot;Начать слушать&quot;.</li>
 			<li>Выбирайте только нужные вам события при помощи фильтра.</li>
 			</ol>
 			<ul>
@@ -72,7 +71,7 @@
 			<!---------------------------------------------------------------------------------------->
 			</button>
 		</div>
-		<h4 id="msg" hidden="false">Для работы этого сайта требуется включить JavaScript в вашем браузере!</h4>
+		<h4 id="msg">Для работы этого сайта необходимо, чтобы был включён JavaScript в вашем браузере.</h4>
 		<div id="donationBlock" hidden="true">
 			<div class="header">
 				<span id="donateHeader"></span>
