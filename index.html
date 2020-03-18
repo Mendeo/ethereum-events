@@ -65,14 +65,14 @@
 			<!--************************************************************************************-->
 		</div>
 		<div class ="buttonsContainer">
-			<button id="connectBt" disabled="true" class="btn-secondary">
+			<button id="connectBt" disabled class="btn-secondary">
 			<!--This is dynamic content. The snapshot in Russian is placed here for the Yandex robot-->
 			Подключиться с MetaMask
 			<!--************************************************************************************-->
 			</button>
 		</div>
 		<h4 id="msg">Для работы этого сайта необходимо, чтобы был включён JavaScript в вашем браузере.</h4>
-		<div id="donationBlock" hidden="true">
+		<div id="donationBlock" hidden>
 			<div class="header">
 				<span id="donateHeader"></span>
 			</div>
@@ -81,7 +81,7 @@
 				<button id="donateBt" class="btn-success" ></button>
 			</div>
 			<div class="header">
-				<span id="donationStatusMsg" hidden="true"></span>
+				<span id="donationStatusMsg" hidden></span>
 			</div>
 			<span id=sendMessageToMeHeader></span>
 			<br/>
@@ -92,15 +92,15 @@
 				<span id="connectionInfo"></span>
 				<span id="contractAddressLb"></span>
 			</div>
-			<div id="eventsFilter" hidden=true>
+			<div id="eventsFilter" hidden>
 				<!--Events filter title-->
 				<p class="message"></p>
 				<div>
 					<!--Events filter checkboxes-->
 				</div>
 				<div class="buttonsContainer controlButtons">
-					<button id="selectAllBt" class="btn-secondary" hidden="true"></button>
-					<button id="unselectAllBt" class="btn-secondary" hidden="true"></button>
+					<button id="selectAllBt" class="btn-secondary" hidden></button>
+					<button id="unselectAllBt" class="btn-secondary" hidden></button>
 				</div>
 				<!--Events counter-->
 				<p class="message"></p>
@@ -108,12 +108,12 @@
 			<ol id="events">
 			</ol>
 			<div class="buttonsContainer controlButtons">
-				<button id="clearEventsBt" class="btn-secondary" hidden="true"></button>
-				<button id="pauseResumeBt" class="btn-secondary" hidden="true"></button>
+				<button id="clearEventsBt" class="btn-secondary" hidden></button>
+				<button id="pauseResumeBt" class="btn-secondary" hidden></button>
 			</div>
 			<div id="scrollToDiv"></div>
 		</div>
-		<div id="inputData" class ="content" hidden="true">
+		<div id="inputData" class ="content" hidden>
 			<span id="contractAddressInHeader"></span>
 			<br/>
 			<input id="contractAddress">
