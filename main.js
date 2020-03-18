@@ -242,8 +242,8 @@ function onTranslationLoad()
 	{
 		const msg = _interfaceLang.noProviderError;
 		_msgEl.hidden = false;
-		alert(msg);
 		_msgEl.innerHTML = msg;
+		alert(msg);
 	}
 }
 
