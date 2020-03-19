@@ -1,5 +1,5 @@
 {
-	"description": "Watch events of smart contracts in the Ethereum blockchain!",
+	"description": "Web application for watching smart contracts events in the Ethereum blockchain network. It can be useful for smart contract developers.",
 	"connectBt": "Connect with MetaMask",
 	"startListenBt": "Start listening",
 	"accountLb": "Your account",
