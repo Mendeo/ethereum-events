@@ -163,7 +163,7 @@ function onTranslationLoad()
 							}
 							else if(isNaN(Number(value)) || Number(value) <= 0)
 							{
-								donateMsg.innerHTML = _interfaceLang.donateIcorrectValue;
+								donateMsg.innerHTML = _interfaceLang.donateIncorrectValue;
 								donateMsg.style = 'color: red';
 							}
 							else

@@ -15,7 +15,7 @@
 	"donateBt": "Send ETH",
 	"donateThankYou": "Thank you!",
 	"donateNotMainNetwork": "You are not in main Ethereum network",
-	"donateIcorrectValue": "Incorrect value",
+	"donateIncorrectValue": "Incorrect value",
 	"donateSendMessageToMeHeader": "Leave a message to the recipient",
 	"selectAllBt": "Select all",
 	"unselectAllBt": "Unselect all",
