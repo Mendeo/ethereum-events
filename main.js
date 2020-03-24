@@ -39,7 +39,7 @@ let _interfaceLang;
 let _infoLang;
 
 start();
-counter();
+navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: navigator.userAgent})) //Подсчёт посетителей сайта.
 
 //Зполняем белым фоном центр.
 fillBg();
@@ -57,11 +57,6 @@ function getAppPath()
 	let aux = path.lastIndexOf('index.html');
 	if (aux) return path.slice(0, aux);
 	return path;
-}
-
-function counter()
-{
-	if (!navigator.sendBeacon('http://localhost:12235', '<counter>')) console.log('Counting error');
 }
 
 async function start()
@@ -162,7 +157,7 @@ function onTranslationLoad()
 						}).then(netType =>
 						{
 							let value = donateValue.value;
-							if (netType !== 'main') //'private' - for test
+							if (netType !== 'private') //'private' - for test
 							{
 								donateMsg.innerHTML = _interfaceLang.donateNotMainNetwork;
 								donateMsg.style = 'color: red';
