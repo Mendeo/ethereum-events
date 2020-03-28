@@ -190,10 +190,13 @@ function onTranslationLoad()
 										donateValue.hidden = true;
 										donateMsg.innerHTML = _interfaceLang.donateThankYou;
 										donateMsg.style = 'color: green';
-										let expiresDate = new Date();
-										expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
 										sendMessageToMeHeader.hidden = true;
-										document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
+										if (!DEBUG)
+										{
+											let expiresDate = new Date();
+											expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
+											document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
+										}
 										const textarea = document.getElementById('messageToMe');
 										let text = textarea.value;
 										textarea.hidden = true;
