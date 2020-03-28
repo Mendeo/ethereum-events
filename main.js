@@ -23,12 +23,12 @@ const DONATION_COOKIE_NAME = 'donateDone';
 const DONATION_COOKIE_EXPIRES_MONTH = 3;
 const DONATION_DEFAULT_VALUE = 0.01;
 const DEFAULT_LANG = 'en-US'
-const MESSAGE_SERVER = DEBUG ? 'https://deorathemen.wixsite.com/messages-debug/_functions/msg' : 'https://deorathemen.wixsite.com/messages/_functions/msg';
+const MESSAGE_SERVER = 'https://deorathemen.wixsite.com/messages/_functions/msg';
 const _provider = window['ethereum'];
 const _msgEl = document.getElementById('msg'); //Общие сообщения, от MetaMask и проч.
-_msgEl.hidden = true; //Прячем пререндер для Яндекс робота.
+_msgEl.hidden = true; //Прячем текст, который показывается без JS.
 const _info = document.getElementById('info'); //Описание программы.
-_info.hidden = true; //Прячем пререндер для Яндекс робота.
+_info.hidden = true; //Прячем текст, который показывается без JS.
 let _contractAddress;
 let _contractAbi;
 let _eventsNames = [];
@@ -40,7 +40,7 @@ let _interfaceLang;
 let _infoLang;
 
 start();
-navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: navigator.userAgent})) //Подсчёт посетителей сайта.
+navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: true})) //Подсчёт посетителей сайта.
 
 //Зполняем белым фоном центр.
 fillBg();
