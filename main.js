@@ -17,12 +17,13 @@
     along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
 */
 'use strict';
+const DEBUG = true;
 const DONATION_ADDRESS = '0x3eCDDfe6c1a705829A2e71c38be40cEB950db865';
 const DONATION_COOKIE_NAME = 'donateDone';
 const DONATION_COOKIE_EXPIRES_MONTH = 3;
 const DONATION_DEFAULT_VALUE = 0.01;
 const DEFAULT_LANG = 'en-US'
-const MESSAGE_SERVER = 'https://deorathemen.wixsite.com/messages/_functions/msg';
+const MESSAGE_SERVER = DEBUG ? 'https://deorathemen.wixsite.com/messages-debug/_functions/msg' : 'https://deorathemen.wixsite.com/messages/_functions/msg';
 const _provider = window['ethereum'];
 const _msgEl = document.getElementById('msg'); //Общие сообщения, от MetaMask и проч.
 _msgEl.hidden = true; //Прячем пререндер для Яндекс робота.
@@ -89,7 +90,7 @@ function onTranslationLoad()
 			if (langStartPos === -1) break;
 			let langParamPos = langStartPos + 6;
 			let langEndPos = _infoLang.indexOf('>', langStartPos);
-			let param = _infoLang.slice(langParamPos, langEndPos);			
+			let param = _infoLang.slice(langParamPos, langEndPos);
 			positions.push(
 				{
 					param: param,
@@ -157,7 +158,7 @@ function onTranslationLoad()
 						}).then(netType =>
 						{
 							let value = donateValue.value;
-							if (netType !== 'private') //'private' - for test
+							if (netType !== (DEBUG ? 'private' : 'main')) //'private' - for test
 							{
 								donateMsg.innerHTML = _interfaceLang.donateNotMainNetwork;
 								donateMsg.style = 'color: red';
