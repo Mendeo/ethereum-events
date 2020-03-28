@@ -17,6 +17,7 @@
     along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
 */
 'use strict';
+const DEBUG = true;
 const DONATION_ADDRESS = '0x3eCDDfe6c1a705829A2e71c38be40cEB950db865';
 const DONATION_COOKIE_NAME = 'donateDone';
 const DONATION_COOKIE_EXPIRES_MONTH = 3;
@@ -25,9 +26,9 @@ const DEFAULT_LANG = 'en-US'
 const MESSAGE_SERVER = 'https://deorathemen.wixsite.com/messages/_functions/msg';
 const _provider = window['ethereum'];
 const _msgEl = document.getElementById('msg'); //Общие сообщения, от MetaMask и проч.
-_msgEl.hidden = true; //Прячем пререндер для Яндекс робота.
+_msgEl.hidden = true; //Прячем текст, который показывается без JS.
 const _info = document.getElementById('info'); //Описание программы.
-_info.hidden = true; //Прячем пререндер для Яндекс робота.
+_info.hidden = true; //Прячем текст, который показывается без JS.
 let _contractAddress;
 let _contractAbi;
 let _eventsNames = [];
@@ -39,6 +40,7 @@ let _interfaceLang;
 let _infoLang;
 
 start();
+navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: true})) //Подсчёт посетителей сайта.
 
 //Зполняем белым фоном центр.
 fillBg();
@@ -88,7 +90,7 @@ function onTranslationLoad()
 			if (langStartPos === -1) break;
 			let langParamPos = langStartPos + 6;
 			let langEndPos = _infoLang.indexOf('>', langStartPos);
-			let param = _infoLang.slice(langParamPos, langEndPos);			
+			let param = _infoLang.slice(langParamPos, langEndPos);
 			positions.push(
 				{
 					param: param,
@@ -156,14 +158,14 @@ function onTranslationLoad()
 						}).then(netType =>
 						{
 							let value = donateValue.value;
-							if (netType !== 'main') //'private' - for test
+							if (netType !== (DEBUG ? 'private' : 'main')) //'private' - for test
 							{
 								donateMsg.innerHTML = _interfaceLang.donateNotMainNetwork;
 								donateMsg.style = 'color: red';
 							}
 							else if(isNaN(Number(value)) || Number(value) <= 0)
 							{
-								donateMsg.innerHTML = _interfaceLang.donateIcorrectValue;
+								donateMsg.innerHTML = _interfaceLang.donateIncorrectValue;
 								donateMsg.style = 'color: red';
 							}
 							else
@@ -188,10 +190,13 @@ function onTranslationLoad()
 										donateValue.hidden = true;
 										donateMsg.innerHTML = _interfaceLang.donateThankYou;
 										donateMsg.style = 'color: green';
-										let expiresDate = new Date();
-										expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
 										sendMessageToMeHeader.hidden = true;
-										document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
+										if (!DEBUG)
+										{
+											let expiresDate = new Date();
+											expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
+											document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
+										}
 										const textarea = document.getElementById('messageToMe');
 										let text = textarea.value;
 										textarea.hidden = true;
