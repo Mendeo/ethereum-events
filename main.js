@@ -40,7 +40,12 @@ let _interfaceLang;
 let _infoLang;
 
 start();
-if (!window.thisIsMySite) navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: true})) //Подсчёт посетителей сайта.
+
+//Подсчёт посетителей сайта.
+setTimeout(() =>
+{
+	if (!window.thisIsMySite) navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: true}))
+}, 5000); //Таймаут отсеивает роботов и позваляет успеть установить thisIsMySite.
 
 //Зполняем белым фоном центр.
 fillBg();
