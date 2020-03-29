@@ -253,7 +253,7 @@ function onTranslationLoad()
 		const msg = _interfaceLang.noProviderError;
 		_msgEl.hidden = false;
 		_msgEl.innerHTML = msg;
-		alert(msg);
+		//alert(msg);
 	}
 }
 
