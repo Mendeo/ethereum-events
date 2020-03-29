@@ -40,7 +40,7 @@ let _interfaceLang;
 let _infoLang;
 
 start();
-navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: true})) //Подсчёт посетителей сайта.
+if (!window.thisIsMySite) navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: true})) //Подсчёт посетителей сайта.
 
 //Зполняем белым фоном центр.
 fillBg();
