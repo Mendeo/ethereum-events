@@ -242,10 +242,12 @@ function onTranslationLoad()
 			{
 				document.location.reload();
 			});
+		/*
 		_provider.on('accountsChanged', () =>
 			{
 				document.location.reload();
 			});
+		*/
 		_provider.autoRefreshOnNetworkChange = false;
 	}
 	else
