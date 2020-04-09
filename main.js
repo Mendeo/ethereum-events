@@ -42,10 +42,15 @@ let _infoLang;
 start();
 
 //Подсчёт посетителей сайта.
-setTimeout(() =>
+const COUNTED_COOKIE_NAME = 'counted';
+let countedCookie = document.cookie.split(';').find(item => item.split('=')[0].trim() === COUNTED_COOKIE_NAME);
+if (!countedCookie)
 {
-	if (!window.thisIsMySite) navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: true}))
-}, 5000); //Таймаут отсеивает роботов и позваляет успеть установить thisIsMySite.
+	let expiresDate = new Date();
+	expiresDate.setFullYear(expiresDate.getFullYear() + 30);
+	document.cookie = `${COUNTED_COOKIE_NAME}=true; expires=${expiresDate.toUTCString()}`;
+	navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: true}))
+}
 
 //Зполняем белым фоном центр.
 fillBg();
