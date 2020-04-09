@@ -137,7 +137,7 @@ function onTranslationLoad()
 			});
 		//*******Donation block*******
 		const donationBlock = document.getElementById('donationBlock');
-		let donationCookie = document.cookie.split(';').find(item => item.split('=')[0] === DONATION_COOKIE_NAME);
+		let donationCookie = document.cookie.split(';').find(item => item.split('=')[0].trim() === DONATION_COOKIE_NAME);
 		const donateValue = document.getElementById('donateValue');
 		if(!donationCookie)
 		{
