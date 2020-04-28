@@ -17,10 +17,9 @@
     along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
 */
 'use strict';
-const DEBUG = false;
+const DEBUG = true;
 const DONATION_ADDRESS = '0x3eCDDfe6c1a705829A2e71c38be40cEB950db865';
-const DONATION_COOKIE_NAME = 'donateDone';
-const DONATION_COOKIE_EXPIRES_MONTH = 3;
+const DONATION_STORAGE_NAME = 'donateDone';
 const DONATION_DEFAULT_VALUE = 0.01;
 const DEFAULT_LANG = 'en-US'
 const MESSAGE_SERVER = 'https://deorathemen.wixsite.com/messages/_functions/ethereum_events_msg';
@@ -42,13 +41,10 @@ let _infoLang;
 start();
 
 //Подсчёт посетителей сайта.
-const COUNTED_COOKIE_NAME = 'counted';
-let countedCookie = document.cookie.split(';').find(item => item.split('=')[0].trim() === COUNTED_COOKIE_NAME);
-if (!countedCookie)
+const COUNTED_STORAGE_NAME = 'counted';
+if (!localStorage.getItem(COUNTED_STORAGE_NAME))
 {
-	let expiresDate = new Date();
-	expiresDate.setFullYear(expiresDate.getFullYear() + 30);
-	document.cookie = `${COUNTED_COOKIE_NAME}=true; expires=${expiresDate.toUTCString()}`;
+	localStorage.setItem(COUNTED_STORAGE_NAME, 'true');
 	navigator.sendBeacon(MESSAGE_SERVER, JSON.stringify({counter: true}))
 }
 
@@ -142,9 +138,8 @@ function onTranslationLoad()
 			});
 		//*******Donation block*******
 		const donationBlock = document.getElementById('donationBlock');
-		let donationCookie = document.cookie.split(';').find(item => item.split('=')[0].trim() === DONATION_COOKIE_NAME);
 		const donateValue = document.getElementById('donateValue');
-		if(!donationCookie)
+		if(!localStorage.getItem(DONATION_STORAGE_NAME))
 		{
 			donationBlock.hidden = false;
 			donateValue.value = DONATION_DEFAULT_VALUE;
@@ -201,12 +196,10 @@ function onTranslationLoad()
 										donateMsg.innerHTML = _interfaceLang.donateThankYou;
 										donateMsg.style = 'color: green';
 										sendMessageToMeHeader.hidden = true;
-										if (!DEBUG)
-										{
-											let expiresDate = new Date();
-											expiresDate.setMonth(expiresDate.getMonth() + DONATION_COOKIE_EXPIRES_MONTH);
-											document.cookie = `${DONATION_COOKIE_NAME}=${value}; expires=${expiresDate.toUTCString()}`;
-										}
+										//if (!DEBUG)
+										//{
+											localStorage.setItem(DONATION_STORAGE_NAME, 'true');
+										//}
 										const textarea = document.getElementById('messageToMe');
 										let text = textarea.value;
 										textarea.hidden = true;
