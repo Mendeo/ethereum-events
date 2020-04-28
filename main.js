@@ -17,7 +17,7 @@
     along with "eth-events". If not, see <https://www.gnu.org/licenses/>.
 */
 'use strict';
-const DEBUG = true;
+const DEBUG = false;
 const DONATION_ADDRESS = '0x3eCDDfe6c1a705829A2e71c38be40cEB950db865';
 const DONATION_STORAGE_NAME = 'donateDone';
 const DONATION_DEFAULT_VALUE = 0.01;
@@ -196,10 +196,10 @@ function onTranslationLoad()
 										donateMsg.innerHTML = _interfaceLang.donateThankYou;
 										donateMsg.style = 'color: green';
 										sendMessageToMeHeader.hidden = true;
-										//if (!DEBUG)
-										//{
+										if (!DEBUG)
+										{
 											localStorage.setItem(DONATION_STORAGE_NAME, 'true');
-										//}
+										}
 										const textarea = document.getElementById('messageToMe');
 										let text = textarea.value;
 										textarea.hidden = true;
