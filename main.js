@@ -152,7 +152,7 @@ function onTranslationLoad()
 			donateBt.addEventListener('click', () =>
 				{
 					let account;
-					let web3
+					let web3;
 					const donateMsg = document.getElementById('donationStatusMsg');
 					donateMsg.hidden = false;
 					_provider.enable().then(accounts =>
