@@ -23,7 +23,6 @@ const DONATION_STORAGE_NAME = 'donateDone';
 const DONATION_DEFAULT_VALUE = 0.01;
 const DEFAULT_LANG = 'en-US'
 const MESSAGE_SERVER = 'https://deorathemen.wixsite.com/messages/_functions/ethereum_events_msg';
-const _provider = window['ethereum'];
 const _msgEl = document.getElementById('msg'); //Общие сообщения, от MetaMask и проч.
 _msgEl.hidden = true; //Прячем текст, который показывается без JS.
 const _info = document.getElementById('info'); //Описание программы.
@@ -128,7 +127,7 @@ function onTranslationLoad()
 			{
 				_msgEl.hidden = false;
 				_msgEl.innerHTML = _interfaceLang.waitingMetaMask;
-				_provider.enable().then(onConnect).catch((error) => 
+				window.ethereum.request({ method: 'eth_requestAccounts' }).then(onConnect).catch((error) => 
 					{
 						_msgEl.innerHTML = _interfaceLang.metaMaskError + ': ' + error.message;
 					});
@@ -155,10 +154,10 @@ function onTranslationLoad()
 					let web3;
 					const donateMsg = document.getElementById('donationStatusMsg');
 					donateMsg.hidden = false;
-					_provider.enable().then(accounts =>
+					window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts =>
 						{
 							account = accounts[0];
-							web3 = new Web3(Web3.givenProvider);
+							web3 = new Web3(window.ethereum);
 							return web3.eth.net.getNetworkType(); 
 						}).then(netType =>
 						{
@@ -236,17 +235,17 @@ function onTranslationLoad()
 				});
 		}
 		//*******End donation block*******
-		_provider.on('networkChanged', () =>
+		window.ethereum.on('chainChanged', () =>
 			{
 				document.location.reload();
 			});
 		/*
-		_provider.on('accountsChanged', () =>
+		window.ethereum.on('accountsChanged', () =>
 			{
 				document.location.reload();
 			});
 		*/
-		_provider.autoRefreshOnNetworkChange = false;
+		window.ethereum.autoRefreshOnNetworkChange = false;
 	}
 	else
 	{
@@ -296,7 +295,7 @@ function getEventsList(abi)
 
 function onContractInput()
 {
-	const web3 = new Web3(Web3.givenProvider);
+	const web3 = new Web3(window.ethereum);
 	const contract = new web3.eth.Contract(_contractAbi, _contractAddress);
 	_eventsNames = getEventsList(_contractAbi); //Получаем объект, в котором ключи - это имена событий, а значения - число таких событий.
 	const clearEventsBt = document.getElementById('clearEventsBt');
