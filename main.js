@@ -20,7 +20,7 @@
 const DEBUG = false;
 const DONATION_ADDRESS = '0x3eCDDfe6c1a705829A2e71c38be40cEB950db865';
 const DONATION_STORAGE_NAME = 'donateDone';
-const DONATION_DEFAULT_VALUE = 0.01;
+const DONATION_DEFAULT_VALUE = 0.001;
 const DEFAULT_LANG = 'en-US'
 const MESSAGE_SERVER = 'https://deorathemen.wixsite.com/messages/_functions/ethereum_events_msg';
 const _msgEl = document.getElementById('msg'); //Общие сообщения, от MetaMask и проч.
